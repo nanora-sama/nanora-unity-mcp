@@ -1,0 +1,120 @@
+# Unity generated
+/[Ll]ibrary/
+/[Tt]emp/
+/[Oo]bj/
+/[Bb]uild/
+/[Bb]uilds/
+/[Ll]ogs/
+/[Uu]ser[Ss]ettings/
+
+# MemoryCaptures
+/[Mm]emoryCaptures/
+
+# Recordings
+/[Rr]ecordings/
+
+# Asset meta data
+*.pidb.meta
+*.pdb.meta
+*.mdb.meta
+
+# Unity3D generated
+*.csproj
+*.unityproj
+*.sln
+*.suo
+*.tmp
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.mdb
+*.opendb
+*.VC.db
+
+# Unity3D generated file on crash reports
+sysinfo.txt
+
+# Recovery files
+/[Aa]ssets/_[Rr]ecovery/
+/[Aa]ssets/_[Rr]ecovery.meta
+
+# Builds
+*.apk
+*.aab
+*.unitypackage
+*.app
+
+# Crashlytics
+crashlytics-build.properties
+
+# Packed Addressables
+/[Aa]ssets/[Aa]ddressable[Aa]ssets[Dd]ata/*/*.bin*
+
+# Temporary auto-generated
+/[Aa]ssets/[Ss]treamingAssets/aa.meta
+/[Aa]ssets/[Ss]treamingAssets/aa/*
+
+# Visual Studio cache
+.vs/
+
+# Rider
+.idea/
+
+# macOS
+.DS_Store
+
+# Unity License (sensitive)
+.unity-license/
+*.alf
+*.ulf
+
+# Demo/Test project (not part of the package)
+/TestProject/
+/Packages/*
+!/Packages/manifest.json
+!/Packages/packages-lock.json
+/ProjectSettings/
+/UserSettings/
+
+# Sample/third-party assets (not part of NanoraUnityMCP package)
+/Assets/ReversedAssets/
+/Assets/ReversedAssets.meta
+/Assets/UnityChan/
+/Assets/UnityChan.meta
+/Assets/TPSGame/
+/Assets/TPSGame.meta
+/Assets/ShootingGame/
+/Assets/ShootingGame.meta
+/Assets/TutorialInfo/
+/Assets/TutorialInfo.meta
+
+# Large binary files
+*.fbx
+*.tga
+*.wav
+*.pdf
+*.psd
+*.unitypackage
+
+# Local skill install manifest + backups
+.claude/.nanora-unity-skills.json
+.claude/skills/**/*.bak
+
+# Claude Code per-machine state (not shared across contributors).
+.claude/settings.local.json
+.claude/scheduled_tasks.lock
+
+# Per-machine MCP client config (port is deterministic per project path, but
+# absolute paths and user-specific state leak into this file).
+.mcp.json
+
+
+# Disposable CI project and Python verification caches.
+/TestProject/
+__pycache__/
+
+# Visual regression baselines written by tests
+/TestBaselines/

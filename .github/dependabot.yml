@@ -1,0 +1,15 @@
+version: 2
+updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    labels:
+      - "dependencies"
+    commit-message:
+      prefix: "deps"
+    open-pull-requests-limit: 3
+    ignore:
+      # Pinned on purpose to the last revision before the CLI migration changed Personal activation
+      # (see the Run EditMode Tests steps). Newer revisions fail license activation, so bumps are reviewed by hand.
+      - dependency-name: "game-ci/unity-test-runner"

@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>nanora-unity-mcp brand frames</title>
+<!-- Source of the images in media/. Render with scripts/release/render-media.mjs (one PNG per frame).
+     Open with ?frame=<id> to see a single frame. Five colours only: ink, brass, rust, steam, cyan. -->
+<style>
+  :root { --ink:#1B1814; --ink2:#241f1a; --brass:#B08B4F; --rust:#8C3B1E; --steam:#D5D3CC; --cyan:#3FB7C2; --line:#3a2f24; }
+  * { box-sizing:border-box; }
+  html, body { margin:0; background:#0e0c0a; }
+  body { font-family:"BIZ UDPGothic","Noto Sans CJK JP","Yu Gothic UI",sans-serif; color:var(--steam); }
+  .frame { display:none; position:relative; overflow:hidden;
+    background:linear-gradient(160deg,#2a2622 0%,#1b1814 55%,#140f0c 100%); }
+  .frame.on { display:block; }
+  .stripe { position:absolute; left:0; right:0; top:0; height:22px;
+    background:repeating-linear-gradient(45deg,var(--brass) 0 20px,var(--ink) 20px 40px); opacity:.9; }
+  .glow { position:absolute; inset:0; pointer-events:none;
+    background:radial-gradient(ellipse at 85% 95%, rgba(140,59,30,.30), transparent 55%),
+               radial-gradient(ellipse at 10% 15%, rgba(176,139,79,.14), transparent 50%); }
+  .mono { font-family:"Cascadia Mono","Consolas",monospace; }
+  .kicker { font:700 26px "Bahnschrift",sans-serif; letter-spacing:.22em; color:var(--brass); }
+  .title { font:700 64px "Bahnschrift","BIZ UDPGothic",sans-serif; color:#efece6; letter-spacing:.01em; text-shadow:0 4px 0 #000; }
+  .cyan { color:var(--cyan); }
+  .brass { color:var(--brass); }
+  .chip { display:inline-block; border:3px solid var(--brass); background:rgba(176,139,79,.12); color:#efece6;
+    padding:10px 20px; margin:0 12px 12px 0; font-weight:700; font-size:28px; }
+  .chip.cy { border-color:var(--cyan); background:rgba(63,183,194,.10); }
+  .card { border:3px solid #5a4630; background:rgba(35,29,24,.88); padding:30px 34px; }
+  .card .n { font:700 60px "Bahnschrift",sans-serif; color:var(--brass); line-height:1; }
+  .card h3 { margin:12px 0 12px; font-size:42px; color:#efece6; }
+  .card p { margin:0; font-size:28px; line-height:1.6; }
+  .foot { position:absolute; left:70px; right:70px; bottom:40px; display:flex; justify-content:space-between;
+    font:700 22px "Bahnschrift",sans-serif; color:#8a7a62; letter-spacing:.14em; }
+  .code { font:600 26px "Cascadia Mono","Consolas",monospace; background:#0f0d0b; border-left:6px solid var(--cyan);
+    padding:16px 22px; color:#e8e4dc; white-space:pre; }
+  table { border-collapse:collapse; width:100%; font-size:30px; }
+  td, th { border-bottom:2px solid var(--line); padding:16px 12px; text-align:left; vertical-align:top; }
+  th { color:var(--brass); font-size:26px; }
+  tr.me td { color:#efece6; background:rgba(63,183,194,.10); }
+  table.cmp { font-size:30px; } table.cmp td { white-space:normal; line-height:1.4; padding:20px 12px; }
+  table.cmp td:last-child { white-space:nowrap; } table.cmp small { display:block; font-size:22px; color:#8a7a62; margin-top:4px; }
+</style>
+</head>
+<body>
+
+<!-- The icon: a brass gear with a cyan check. The gear is drawn by script into every <svg class="mark">. -->
+<template id="mark">
+  <svg class="mark" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="brassG" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#d2ad6c"/><stop offset=".55" stop-color="#B08B4F"/><stop offset="1" stop-color="#7a5e33"/>
+      </linearGradient>
+    </defs>
+    <path class="gear" fill="url(#brassG)" stroke="#1B1814" stroke-width="3"/>
+    <circle cx="100" cy="100" r="47" fill="#1B1814"/>
+    <circle cx="100" cy="100" r="47" fill="none" stroke="#8C3B1E" stroke-width="4"/>
+    <path d="M76 101 L94 119 L127 82" fill="none" stroke="#3FB7C2" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+</template>
+
+<section class="frame" id="icon" data-w="512" data-h="512" style="border-radius:0">
+  <div style="position:absolute;inset:0;background:radial-gradient(circle at 50% 40%,#2c2620,#141210)"></div>
+  <div class="m" style="position:absolute;left:46px;top:46px;width:420px;height:420px"></div>
+</section>
+
+<section class="frame" id="social" data-w="1280" data-h="640">
+  <div class="stripe"></div><div class="glow"></div>
+  <div class="m" style="position:absolute;left:80px;top:150px;width:340px;height:340px"></div>
+  <div style="position:absolute;left:470px;top:130px;right:70px">
+    <div class="kicker">MCP SERVER FOR THE UNITY EDITOR</div>
+    <div class="title" style="font-size:78px;margin:14px 0 18px">nanora-unity-mcp</div>
+    <div style="font-size:38px;font-weight:700;color:#efece6;line-height:1.45">Unity の中だけで動く、<br>AI のための操縦席。</div>
+    <div style="margin-top:30px"><span class="chip cy">Claude Code</span><span class="chip cy">Codex</span><span class="chip cy">Cursor</span><span class="chip">No Node.js / Python</span><span class="chip">57 tools</span><span class="chip">MIT</span></div>
+  </div>
+</section>
+
+<section class="frame" id="booth-01" data-w="1200" data-h="1200">
+  <div class="stripe"></div><div class="glow"></div>
+  <div class="m" style="position:absolute;left:390px;top:110px;width:420px;height:420px"></div>
+  <div style="position:absolute;left:70px;right:70px;top:570px;text-align:center">
+    <div class="title" style="font-size:86px">nanora-unity-mcp</div>
+    <div style="font-size:46px;font-weight:700;color:#efece6;margin:30px 0 26px">Unity の中だけで動く、AI のための操縦席。</div>
+    <div style="font-size:32px;line-height:1.55;margin-bottom:44px">Claude Code・Codex・Cursor から<br>Unity Editor を直接操作する MCP サーバー</div>
+    <div><span class="chip cy">無料・オープンソース（MIT）</span><span class="chip">Node.js も Python も不要</span><span class="chip">Unity 2021.3 〜 6</span></div>
+  </div>
+</section>
+
+<section class="frame" id="booth-02" data-w="1200" data-h="1200">
+  <div class="stripe"></div><div class="glow"></div>
+  <div style="position:absolute;left:70px;right:70px;top:80px">
+    <div class="kicker">THREE REASONS</div>
+    <div class="title" style="margin:14px 0 40px">ここが違う</div>
+    <div class="card" style="margin-bottom:26px"><div class="n">01</div><h3>入れるだけ</h3>
+      <p>サーバーは <b class="cyan">Unity Editor の中</b>で動きます。Node.js・Python・別のサーバーは要りません。Claude Code の設定ファイル（.mcp.json）も自動で書きます。</p></div>
+    <div class="card" style="margin-bottom:26px"><div class="n">02</div><h3>確かめるまでやる</h3>
+      <p>「表示されるまで待つ」「この値か検証する」「キーを押して動かす」を AI が自分で。変更が本当に反映されたかを確かめる <b class="cyan">Claude Code 用 Skill</b> を同梱。</p></div>
+    <div class="card"><div class="n">03</div><h3>何個開いても迷わない</h3>
+      <p>ポートは<b class="cyan">プロジェクトごとに決まった番号</b>。AI はつながった先のプロジェクト名を確かめられるので、別の Unity を触りません。</p></div>
+  </div>
+</section>
+
+<section class="frame" id="booth-03" data-w="1200" data-h="1200">
+  <div class="stripe"></div><div class="glow"></div>
+  <div style="position:absolute;left:70px;right:70px;top:80px">
+    <div class="kicker">TOOLBOX</div>
+    <div class="title" style="margin:14px 0 36px">57 のツール、18 の分類</div>
+    <div style="font-size:0">
+      <span class="chip">シーン操作</span><span class="chip">セレクタ検索</span><span class="chip">C# をその場で実行</span><span class="chip">コンパイル・エラー</span>
+      <span class="chip">Play モード</span><span class="chip">キー・マウス入力</span><span class="chip">表示を待つ</span><span class="chip">UI を検証</span>
+      <span class="chip">スクリーンショット</span><span class="chip">テスト実行</span><span class="chip cy">E2E シナリオ</span><span class="chip cy">スクショ差分</span>
+      <span class="chip cy">性能バジェット</span><span class="chip cy">テストレポート</span><span class="chip">フレーム解析</span><span class="chip">CPU・メモリ</span>
+      <span class="chip">マテリアル診断・修復</span><span class="chip">Prefab・アセット</span><span class="chip">パッケージ管理</span><span class="chip">ライト・カメラ</span>
+      <span class="chip">アニメーション・音</span><span class="chip">UI 作成</span>
+    </div>
+    <div class="code" style="margin-top:34px">query_objects(".Enemy[tag=Boss]")
+wait_for_selector("#GameOver")
+assert_ui_state("#ScoreText", "text", 0, "greater_than")</div>
+    <p style="font-size:30px;line-height:1.6;margin-top:30px"><b class="cyan">シアンの 4 つ</b>は、手順を並べた E2E テスト・スクリーンショットの差分比較・FPS や描画数の予算チェック・テストレポート。これも全部無料で入っています。</p>
+    <p style="font-size:30px;line-height:1.6;margin-top:18px">ツールが多すぎて AI が迷うときは、分類だけを見せる<b class="cyan">省エネモード</b>（SuperSave）に切り替えられます。</p>
+  </div>
+</section>
+
+<section class="frame" id="booth-04" data-w="1200" data-h="1200">
+  <div class="stripe"></div><div class="glow"></div>
+  <div style="position:absolute;left:70px;right:70px;top:80px">
+    <div class="kicker">SETUP</div>
+    <div class="title" style="margin:14px 0 36px">つなぐまで 3 手</div>
+    <p style="font-size:36px;font-weight:700;color:#efece6;margin:0 0 14px">1. 入れる</p>
+    <p style="font-size:30px;line-height:1.6;margin:0">Package Manager ▸ + ▸ Add package from tarball… で同梱の .tgz を選ぶ。必要なパッケージも自動で入ります。</p>
+    <p style="font-size:36px;font-weight:700;color:#efece6;margin:40px 0 14px">2. 起動する</p>
+    <p style="font-size:30px;line-height:1.6;margin:0">Unity を開くとサーバーが自動で起動。初回は Setup Wizard が案内します。</p>
+    <p style="font-size:36px;font-weight:700;color:#efece6;margin:40px 0 10px">3. AI をつなぐ</p>
+    <table>
+      <tr><td style="width:250px" class="cyan">Claude Code</td><td>プロジェクトのフォルダで <span class="mono">claude</span>（設定は自動）</td></tr>
+      <tr><td class="cyan">Codex</td><td class="mono" style="font-size:24px">codex mcp add nanora-unity-mcp<br>--url http://127.0.0.1:&lt;PORT&gt;/mcp</td></tr>
+      <tr><td class="cyan">Cursor など</td><td class="mono" style="font-size:24px">http://localhost:&lt;PORT&gt;/sse</td></tr>
+    </table>
+    <div class="card" style="margin-top:44px;padding:24px 30px"><p style="font-size:27px;line-height:1.7">まずはサンプルで<br><b class="cyan" style="white-space:nowrap;font-size:24px">Tools ▸ Nanora Unity MCP ▸ Samples ▸ Build Shooting Game Scene</b><br>AI に「Play して Space を 5 回押して、スコアを確かめて」と頼んでみる</p></div>
+  </div>
+</section>
+
+<section class="frame" id="booth-05" data-w="1200" data-h="1200">
+  <div class="stripe"></div><div class="glow"></div>
+  <div style="position:absolute;left:70px;right:70px;top:70px">
+    <div class="kicker">TRY IT ─ SHOOTING GAME SAMPLE</div>
+    <div class="title" style="font-size:54px;margin:12px 0 22px">AI に遊ばせて、確かめさせる</div>
+    <img src="../screenshot-editor.png" style="display:block;width:1060px;height:520px;object-fit:cover;object-position:0 0;border:3px solid #5a4630">
+    <div class="code" style="margin-top:22px;font-size:22px;line-height:1.5">=== E2E Test Result: Score after five shots ===
+Status: PASSED   Steps: 7/7
+Step 1: wait_for_selector("#Player") -- PASSED
+Step 2: simulate_input(key_tap: Space) -- PASSED
+Step 3: simulate_input(key_tap: Space) -- PASSED
+Step 4: simulate_input(key_tap: Space) -- PASSED
+Step 5: wait(800ms) -- PASSED
+Step 6: assert(#ScoreText, text, greater_than 0) -- PASSED
+Step 7: screenshot(after_shots) -- PASSED</div>
+    <p style="font-size:24px;margin-top:16px;color:#a99b85">同梱サンプルを実際に動かした画面と run_e2e_test の出力（Unity 6.3）</p>
+  </div>
+</section>
+
+<section class="frame" id="booth-06" data-w="1200" data-h="1200">
+  <div class="stripe"></div><div class="glow"></div>
+  <div style="position:absolute;left:70px;right:70px;top:80px">
+    <div class="kicker">COMPARISON</div>
+    <div class="title" style="font-size:56px;margin:14px 0 34px">ほかの Unity MCP と、要るものの違い</div>
+    <table class="cmp">
+      <tr><th style="width:330px"></th><th>Unity のほかに要るもの</th><th style="width:200px">Unity の版</th></tr>
+      <tr class="me"><td><b>nanora-unity-mcp</b></td><td>なし（Editor の中で完結）</td><td>2021.3 〜 6</td></tr>
+      <tr><td>unity-mcp<small>CoplayDev</small></td><td>Python 3.10+（uv）</td><td>2021.3 〜 6.x</td></tr>
+      <tr><td>mcp-unity<small>CoderGamester</small></td><td>Node.js 18+</td><td>6 以上</td></tr>
+      <tr><td>Unity-MCP<small>IvanMurzak</small></td><td>別プロセスのサーバー実行ファイル</td><td>—</td></tr>
+      <tr><td>Unity 公式 MCP<small>AI Assistant</small></td><td>中継プログラム、<br>Unity Cloud 連携、<br>AI ツールの契約</td><td>6 以上</td></tr>
+    </table>
+    <p style="font-size:30px;margin-top:34px">どれも良いツールです。<b class="cyan">「Unity だけで完結したい」</b>ならこれ。</p>
+    <p style="font-size:22px;color:#8a7a62">各プロジェクトの README・公式ドキュメント（2026-10-19 時点）より</p>
+  </div>
+</section>
+
+<script>
+  // Gear outline: 12 trapezoid teeth around a ring.
+  function gearPath(cx, cy, rOuter, rRoot, teeth) {
+    const pts = [], step = Math.PI * 2 / teeth;
+    for (let i = 0; i < teeth; i++) {
+      const a = i * step - Math.PI / 2;
+      const seq = [[rRoot, -0.5], [rOuter, -0.32], [rOuter, 0.32], [rRoot, 0.5]];
+      for (const [r, f] of seq) pts.push([cx + r * Math.cos(a + f * step), cy + r * Math.sin(a + f * step)]);
+    }
+    return 'M' + pts.map(p => p[0].toFixed(2) + ' ' + p[1].toFixed(2)).join(' L') + ' Z';
+  }
+  const tpl = document.getElementById('mark');
+  let markCount = 0;
+  document.querySelectorAll('.m').forEach(host => {
+    const svg = tpl.content.firstElementChild.cloneNode(true);
+    // Gradient ids are document-wide; a shared id would point at the copy inside a hidden frame.
+    const gid = 'brassG' + (++markCount);
+    svg.querySelector('linearGradient').id = gid;
+    svg.querySelector('.gear').setAttribute('fill', 'url(#' + gid + ')');
+    svg.querySelector('.gear').setAttribute('d', gearPath(100, 100, 92, 74, 12));
+    svg.setAttribute('width', '100%'); svg.setAttribute('height', '100%');
+    host.appendChild(svg);
+  });
+  const id = new URLSearchParams(location.search).get('frame');
+  document.querySelectorAll('.frame').forEach(f => {
+    f.style.width = f.dataset.w + 'px'; f.style.height = f.dataset.h + 'px';
+    if (!id || f.id === id) f.classList.add('on');
+  });
+</script>
+</body>
+</html>

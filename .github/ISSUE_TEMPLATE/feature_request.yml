@@ -1,0 +1,16 @@
+name: 要望 / Feature request
+description: 欲しいツールや改善 / A tool or improvement you would like
+labels: [enhancement]
+body:
+  - type: textarea
+    id: goal
+    attributes:
+      label: やりたいこと / What you want to do
+      description: AI に何を頼みたいか、いまは何が足りないか / What you want to ask the AI, and what is missing today
+    validations:
+      required: true
+  - type: textarea
+    id: idea
+    attributes:
+      label: 案 / Idea
+      description: ツール名・引数・返してほしいもの（あれば） / Tool name, arguments, result (optional)

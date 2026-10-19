@@ -1,0 +1,207 @@
+# Clean Install Verification
+# Verifies that the package works when installed into an empty Unity project.
+# Catches missing dependency declarations, assembly definition issues, etc.
+
+name: Clean Install Verification
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  checks: write
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # =============================================================
+  # Clean Install — Latest Unity (always runs)
+  # =============================================================
+  clean-install-latest:
+    name: Clean Install (6000.3.4f1)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    # Serialize activation/return across both workflows for the shared Unity account.
+    concurrency:
+      group: unity-ci-license
+      queue: max
+      cancel-in-progress: false
+
+    steps:
+      - name: Free Disk Space
+        run: |
+          sudo rm -rf /usr/share/dotnet
+          sudo rm -rf /opt/ghc
+          sudo rm -rf /usr/local/share/boost
+          df -h
+
+      - name: Checkout repository
+        uses: actions/checkout@v7
+        with:
+          lfs: false
+
+      - name: Prepare Unity project
+        run: python3 scripts/ci/unity_ci.py prepare TestProject 6000.3.4f1
+
+      - name: Cache Library
+        uses: actions/cache@v6
+        with:
+          path: TestProject/Library
+          key: CleanInstall-Library-6000.3.4f1-${{ hashFiles('Assets/NanoraUnityMCP/**', 'TestProject/Packages/**', 'TestProject/ProjectSettings/**') }}
+          restore-keys: |
+            CleanInstall-Library-6000.3.4f1-
+
+      - name: Require Unity license secrets
+        id: license
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE_6000 }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        run: python3 scripts/ci/unity_ci.py license
+
+      - name: Run EditMode Tests
+        # Last Node 24 revision before the CLI migration changed Personal activation.
+        uses: game-ci/unity-test-runner@70a43fd07570eba926a875a9708c5be06adb092d
+        id: tests
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE_6000 }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        with:
+          unityVersion: 6000.3.4f1
+          projectPath: TestProject
+          testMode: EditMode
+          artifactsPath: test-results
+          checkName: Clean Install Results (6000.3.4f1)
+          githubToken: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Verify NUnit results exist and contain passing tests
+        run: python3 scripts/ci/unity_ci.py results test-results
+
+      - name: Upload Test Results
+        uses: actions/upload-artifact@v7
+        if: always() && steps.license.outcome == 'success'
+        with:
+          name: CleanInstall-Results-6000.3.4f1
+          path: test-results
+          if-no-files-found: error
+          retention-days: 14
+
+  # =============================================================
+  # Clean Install — Legacy Unity versions (push to main/develop only)
+  # =============================================================
+  clean-install-legacy:
+    name: Clean Install (${{ matrix.unityVersion }})
+    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    # Serialize activation/return across both workflows for the shared Unity account.
+    concurrency:
+      group: unity-ci-license
+      queue: max
+      cancel-in-progress: false
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - unityVersion: 2021.3.45f2
+            licenseSecret: UNITY_LICENSE_2021
+          - unityVersion: 2022.3.62f3
+            licenseSecret: UNITY_LICENSE_2022
+
+    steps:
+      - name: Free Disk Space
+        run: |
+          sudo rm -rf /usr/share/dotnet
+          sudo rm -rf /opt/ghc
+          sudo rm -rf /usr/local/share/boost
+          df -h
+
+      - name: Checkout repository
+        uses: actions/checkout@v7
+        with:
+          lfs: false
+
+      - name: Prepare Unity project
+        run: python3 scripts/ci/unity_ci.py prepare TestProject ${{ matrix.unityVersion }}
+
+      - name: Cache Library
+        uses: actions/cache@v6
+        with:
+          path: TestProject/Library
+          key: CleanInstall-Library-${{ matrix.unityVersion }}-${{ hashFiles('Assets/NanoraUnityMCP/**', 'TestProject/Packages/**', 'TestProject/ProjectSettings/**') }}
+          restore-keys: |
+            CleanInstall-Library-${{ matrix.unityVersion }}-
+
+      - name: Require Unity license secrets
+        id: license
+        env:
+          UNITY_LICENSE: ${{ secrets[matrix.licenseSecret] }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        run: python3 scripts/ci/unity_ci.py license
+
+      - name: Run EditMode Tests
+        # Last Node 24 revision before the CLI migration changed Personal activation.
+        uses: game-ci/unity-test-runner@70a43fd07570eba926a875a9708c5be06adb092d
+        id: tests
+        env:
+          UNITY_LICENSE: ${{ secrets[matrix.licenseSecret] }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        with:
+          unityVersion: ${{ matrix.unityVersion }}
+          projectPath: TestProject
+          testMode: EditMode
+          artifactsPath: test-results
+          checkName: Clean Install Results (${{ matrix.unityVersion }})
+          githubToken: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Verify NUnit results exist and contain passing tests
+        run: python3 scripts/ci/unity_ci.py results test-results
+
+      - name: Upload Test Results
+        uses: actions/upload-artifact@v7
+        if: always() && steps.license.outcome == 'success'
+        with:
+          name: CleanInstall-Results-${{ matrix.unityVersion }}
+          path: test-results
+          if-no-files-found: error
+          retention-days: 14
+
+  # =============================================================
+  # Summary
+  # =============================================================
+  summary:
+    name: Clean Install Summary
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    needs: [clean-install-latest, clean-install-legacy]
+    if: always()
+
+    steps:
+      - uses: actions/checkout@v7
+      - name: Summary
+        run: |
+          echo "## Clean Install Verification Results" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Version | Result |" >> $GITHUB_STEP_SUMMARY
+          echo "|---------|--------|" >> $GITHUB_STEP_SUMMARY
+          echo "| Clean Install Latest (6000.x) | ${{ needs.clean-install-latest.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Clean Install Legacy (2021/2022) | ${{ needs.clean-install-legacy.result }} |" >> $GITHUB_STEP_SUMMARY
+
+      - name: Require all expected jobs to pass
+        env:
+          LATEST_RESULT: ${{ needs.clean-install-latest.result }}
+          LEGACY_RESULT: ${{ needs.clean-install-legacy.result }}
+          EVENT_NAME: ${{ github.event_name }}
+        run: python3 scripts/ci/unity_ci.py jobs "$LATEST_RESULT" "$LEGACY_RESULT" "$EVENT_NAME"

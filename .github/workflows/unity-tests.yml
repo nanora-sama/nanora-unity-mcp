@@ -1,0 +1,208 @@
+# Unity Test Runner with GameCI (Multi-Version)
+# https://game.ci/docs/github/getting-started
+
+name: Unity Tests
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:  # 手動実行可能
+
+# Required for check annotations
+permissions:
+  contents: read
+  checks: write
+
+# 同じブランチ/PRで新しいワークフローが開始されたら古いものをキャンセル
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # =============================================================
+  # EditMode Tests — Latest Unity (always runs)
+  # =============================================================
+  test-editmode-latest:
+    name: EditMode (6000.3.4f1)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    # Serialize activation/return across both workflows for the shared Unity account.
+    concurrency:
+      group: unity-ci-license
+      queue: max
+      cancel-in-progress: false
+
+    steps:
+      - name: Free Disk Space
+        run: |
+          sudo rm -rf /usr/share/dotnet
+          sudo rm -rf /opt/ghc
+          sudo rm -rf /usr/local/share/boost
+          df -h
+
+      - name: Checkout repository
+        uses: actions/checkout@v7
+        with:
+          lfs: false
+
+      - name: Prepare Unity project
+        run: python3 scripts/ci/unity_ci.py prepare . 6000.3.4f1
+
+      - name: Cache Library
+        uses: actions/cache@v6
+        with:
+          path: Library
+          key: Library-6000.3.4f1-EditMode-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
+          restore-keys: |
+            Library-6000.3.4f1-EditMode-
+            Library-6000.3.4f1-
+
+      - name: Require Unity license secrets
+        id: license
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE_6000 }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        run: python3 scripts/ci/unity_ci.py license
+
+      - name: Run EditMode Tests
+        # Last Node 24 revision before the CLI migration changed Personal activation.
+        uses: game-ci/unity-test-runner@70a43fd07570eba926a875a9708c5be06adb092d
+        id: tests
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE_6000 }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        with:
+          unityVersion: 6000.3.4f1
+          testMode: EditMode
+          artifactsPath: test-results
+          checkName: EditMode Results (6000.3.4f1)
+          githubToken: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Verify NUnit results exist and contain passing tests
+        run: python3 scripts/ci/unity_ci.py results test-results
+
+      - name: Upload Test Results
+        uses: actions/upload-artifact@v7
+        if: always() && steps.license.outcome == 'success'
+        with:
+          name: EditMode-Results-6000.3.4f1
+          path: test-results
+          if-no-files-found: error
+          retention-days: 14
+
+  # =============================================================
+  # EditMode Tests — Legacy Unity versions (push to main/develop only)
+  # =============================================================
+  test-editmode-legacy:
+    name: EditMode (${{ matrix.unityVersion }})
+    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    # Serialize activation/return across both workflows for the shared Unity account.
+    concurrency:
+      group: unity-ci-license
+      queue: max
+      cancel-in-progress: false
+    strategy:
+      fail-fast: false  # 1つ失敗しても他は続続
+      matrix:
+        include:
+          - unityVersion: 2021.3.45f2
+            licenseSecret: UNITY_LICENSE_2021
+          - unityVersion: 2022.3.62f3
+            licenseSecret: UNITY_LICENSE_2022
+
+    steps:
+      - name: Free Disk Space
+        run: |
+          sudo rm -rf /usr/share/dotnet
+          sudo rm -rf /opt/ghc
+          sudo rm -rf /usr/local/share/boost
+          df -h
+
+      - name: Checkout repository
+        uses: actions/checkout@v7
+        with:
+          lfs: false
+
+      - name: Prepare Unity project
+        run: python3 scripts/ci/unity_ci.py prepare . ${{ matrix.unityVersion }}
+
+      - name: Cache Library
+        uses: actions/cache@v6
+        with:
+          path: Library
+          key: Library-${{ matrix.unityVersion }}-EditMode-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
+          restore-keys: |
+            Library-${{ matrix.unityVersion }}-EditMode-
+            Library-${{ matrix.unityVersion }}-
+
+      - name: Require Unity license secrets
+        id: license
+        env:
+          UNITY_LICENSE: ${{ secrets[matrix.licenseSecret] }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        run: python3 scripts/ci/unity_ci.py license
+
+      - name: Run EditMode Tests
+        # Last Node 24 revision before the CLI migration changed Personal activation.
+        uses: game-ci/unity-test-runner@70a43fd07570eba926a875a9708c5be06adb092d
+        id: tests
+        env:
+          UNITY_LICENSE: ${{ secrets[matrix.licenseSecret] }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        with:
+          unityVersion: ${{ matrix.unityVersion }}
+          testMode: EditMode
+          artifactsPath: test-results
+          checkName: EditMode Results (${{ matrix.unityVersion }})
+          githubToken: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Verify NUnit results exist and contain passing tests
+        run: python3 scripts/ci/unity_ci.py results test-results
+
+      - name: Upload Test Results
+        uses: actions/upload-artifact@v7
+        if: always() && steps.license.outcome == 'success'
+        with:
+          name: EditMode-Results-${{ matrix.unityVersion }}
+          path: test-results
+          if-no-files-found: error
+          retention-days: 14
+
+  # =============================================================
+  # Test Summary
+  # =============================================================
+  test-summary:
+    name: Test Summary
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    needs: [test-editmode-latest, test-editmode-legacy]
+    if: always()
+
+    steps:
+      - uses: actions/checkout@v7
+      - name: Summary
+        run: |
+          echo "## Unity Multi-Version Test Results" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Version | Result |" >> $GITHUB_STEP_SUMMARY
+          echo "|---------|--------|" >> $GITHUB_STEP_SUMMARY
+          echo "| EditMode Latest (6000.x) | ${{ needs.test-editmode-latest.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| EditMode Legacy (2021/2022) | ${{ needs.test-editmode-legacy.result }} |" >> $GITHUB_STEP_SUMMARY
+
+      - name: Require all expected jobs to pass
+        env:
+          LATEST_RESULT: ${{ needs.test-editmode-latest.result }}
+          LEGACY_RESULT: ${{ needs.test-editmode-legacy.result }}
+          EVENT_NAME: ${{ github.event_name }}
+        run: python3 scripts/ci/unity_ci.py jobs "$LATEST_RESULT" "$LEGACY_RESULT" "$EVENT_NAME"

@@ -1,0 +1,63 @@
+name: 不具合の報告 / Bug report
+description: 期待どおりに動かないとき / Something does not work as expected
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        先に [クイックスタートの「困ったとき」](https://github.com/nanora-sama/nanora-unity-mcp/blob/main/Assets/NanoraUnityMCP/Documentation~/QuickStart_JP.md#7-困ったとき) を見ると、すぐ解決することがあります。
+        Check the [troubleshooting table](https://github.com/nanora-sama/nanora-unity-mcp/blob/main/Assets/NanoraUnityMCP/Documentation~/QuickStart.md#7-troubleshooting) first.
+        個人情報・API キー・非公開プロジェクトの中身は書かないでください。 Do not paste secrets or private project content.
+  - type: textarea
+    id: what
+    attributes:
+      label: 何が起きたか / What happened
+      description: 期待したことと、実際に起きたこと / What you expected and what happened instead
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: 再現手順 / Steps to reproduce
+      description: AI に頼んだ文や、呼ばれたツールと引数が分かれば書いてください / The prompt, or the tool and arguments that were called
+      placeholder: |
+        1. Shooting Game Sample を取り込む
+        2. 「Play して Space を押して」と頼む
+        3. ...
+    validations:
+      required: true
+  - type: input
+    id: unity
+    attributes:
+      label: Unity のバージョンと OS / Unity version and OS
+      placeholder: Unity 6000.3.7f1, Windows 11
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: nanora-unity-mcp の版 / Package version
+      description: Package Manager か /health の version / From Package Manager or /health
+      placeholder: 1.2.0
+    validations:
+      required: true
+  - type: dropdown
+    id: install
+    attributes:
+      label: 入れ方 / Install method
+      options: [tarball (.tgz), Git URL, .unitypackage, その他 / other]
+    validations:
+      required: true
+  - type: input
+    id: client
+    attributes:
+      label: AI クライアント / MCP client
+      placeholder: Claude Code / Codex / Cursor ...
+    validations:
+      required: true
+  - type: textarea
+    id: status
+    attributes:
+      label: mcp_status の結果と Console のエラー / mcp_status output and Console errors
+      description: AI に「mcp_status を見せて」と頼むか、curl http://127.0.0.1:<PORT>/health の結果。Console の [UnityMCP] のエラーも
+      render: text

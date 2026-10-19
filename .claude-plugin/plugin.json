@@ -1,0 +1,5 @@
+{
+  "name": "nanora-unity-mcp",
+  "description": "Unity Editor automation via MCP, running inside the Editor. 57 tools for scenes, C# execution, play-mode testing and performance.",
+  "skills": ["./skills"]
+}

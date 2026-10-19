@@ -1,0 +1,15 @@
+# Tests
+Editor/Tests/
+Editor/Tests.meta
+*.Tests.asmdef
+*.Tests.asmdef.meta
+
+# Development files
+.DS_Store
+*.log
+
+# IDE
+.idea/
+.vscode/
+*.csproj
+*.sln

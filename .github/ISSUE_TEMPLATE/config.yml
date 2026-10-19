@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: クイックスタートと「困ったとき」 / Quick start and troubleshooting
+    url: https://github.com/nanora-sama/nanora-unity-mcp/blob/main/Assets/NanoraUnityMCP/Documentation~/QuickStart_JP.md
+    about: 導入・接続・よくある症状の対処 / Install, connect, common problems
+  - name: 脆弱性の報告 / Report a vulnerability
+    url: https://github.com/nanora-sama/nanora-unity-mcp/security/advisories/new
+    about: 公開の Issue ではなく、非公開で報告してください / Report privately, not as a public issue

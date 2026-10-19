@@ -1,0 +1,17 @@
+name: CI Configuration
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify-ci:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v7
+      - name: Verify project preparation and failure gates
+        run: python3 -m unittest discover -s scripts/ci -v
