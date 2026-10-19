@@ -79,15 +79,24 @@ def check_license(env):
 
     GitHub does not give Actions secrets to Dependabot or fork pull requests; Unity then fails with
     "Licensing method: <none>" and only "No NUnit results" is reported, which reads like a test failure.
+    On push or workflow_dispatch the secrets are simply not configured for the repository.
     """
     missing = [name for name in LICENSE_VARIABLES if not env.get(name, "").strip()]
     if missing:
         actor = env.get("GITHUB_ACTOR", "?")
         event = env.get("GITHUB_EVENT_NAME", "?")
-        raise ValueError(
-            f"Unity license secrets are empty for this run ({', '.join(missing)}; actor={actor}, event={event}). "
-            "Dependabot and fork pull requests do not receive Actions secrets: add UNITY_LICENSE_6000/2021/2022, "
-            "UNITY_EMAIL and UNITY_PASSWORD as Dependabot secrets, or run the workflow with workflow_dispatch.")
+        secrets = [env.get("UNITY_LICENSE_SECRET", "UNITY_LICENSE") if name == "UNITY_LICENSE" else name for name in missing]
+        problem = f"Unity license secrets are empty for this run ({', '.join(secrets)}; actor={actor}, event={event}). "
+        repository = env.get("GITHUB_REPOSITORY", "this repository")
+        configure = (f"add them to {repository} under Settings > Secrets and variables > Actions "
+                     "(see .github/workflows/README.md#secrets)")
+        if actor == "dependabot[bot]":
+            hint = "Dependabot pull requests do not receive Actions secrets: add them as Dependabot secrets, or run the workflow with workflow_dispatch."
+        elif event in ("pull_request", "pull_request_target"):
+            hint = f"Fork pull requests do not receive Actions secrets (run the workflow with workflow_dispatch); for a same-repository pull request, {configure}."
+        else:
+            hint = f"The secrets are not configured for this repository: {configure}."
+        raise ValueError(problem + hint)
     print("Unity license secrets are present")
 
 
