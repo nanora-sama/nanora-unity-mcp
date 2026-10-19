@@ -511,7 +511,9 @@ namespace NanoraUnityMCP.Tools
                 "3" => Key.Digit3, "4" => Key.Digit4, "5" => Key.Digit5,
                 "6" => Key.Digit6, "7" => Key.Digit7, "8" => Key.Digit8,
                 "9" => Key.Digit9,
-                _ => Key.None
+                // Anything else by its Input System name (DownArrow, F5, LeftShift, Digit1, ...), so key names that
+                // also exist as KeyCode do not fall back to an Editor event the game never sees.
+                _ => !char.IsDigit(keyName[0]) && Enum.TryParse<Key>(keyName, true, out var named) ? named : Key.None
             };
         }
 #endif

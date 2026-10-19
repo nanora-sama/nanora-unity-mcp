@@ -38,7 +38,7 @@ body:
     attributes:
       label: nanora-unity-mcp の版 / Package version
       description: Package Manager か /health の version / From Package Manager or /health
-      placeholder: 1.2.0
+      placeholder: 1.2.1
     validations:
       required: true
   - type: dropdown

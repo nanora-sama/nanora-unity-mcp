@@ -167,9 +167,12 @@ namespace NanoraUnityMCP.Tools
             // Everything runs on main thread via a single dispatch
             MainThreadDispatcher.Enqueue(() =>
             {
-                // Clear previous results and trigger compilation
+                // Clear previous results and trigger compilation. Keep the last messages: when nothing changed
+                // since a failed compile, Unity does not compile again and they are still the current errors.
+                List<CompilationMessage> previousMessages;
                 lock (s_Lock)
                 {
+                    previousMessages = new List<CompilationMessage>(s_Messages);
                     s_Messages.Clear();
                     s_CompilationSucceeded = true;
                 }
@@ -250,6 +253,22 @@ namespace NanoraUnityMCP.Tools
                             s_ActiveTcs = null;
                             success = s_CompilationSucceeded;
                             messages = new List<CompilationMessage>(s_Messages);
+                            if (EditorUtility.scriptCompilationFailed)
+                            {
+                                // Nothing recompiled, but the scripts still fail from the last compile: report that,
+                                // not "succeeded" with 0 errors.
+                                success = false;
+                                s_CompilationSucceeded = false;
+                                if (messages.Count == 0) s_Messages.AddRange(messages = previousMessages);
+                            }
+                        }
+
+                        if (!success && messages.Count == 0)
+                        {
+                            tcs.TrySetResult(McpToolResult.Success(FormatResult(false,
+                                "Compilation failed earlier and nothing changed since; the errors are in the Console",
+                                messages, includeWarnings)));
+                            return;
                         }
 
                         string status = (messages.Count == 0 && success)

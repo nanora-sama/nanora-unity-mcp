@@ -1,7 +1,7 @@
 {
   "name": "com.nanora.nanora-unity-mcp",
   "displayName": "nanora-unity-mcp",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "unity": "2021.3",
   "description": "Unity Editor MCP server that runs entirely inside the Editor (no Node.js or Python). Streamable HTTP for Codex, SSE for Claude Code and Cursor. Scene editing, C# execution, Playwright-style selectors, input simulation and UI assertions, E2E scenarios, visual regression, performance budgets, and bundled Claude Code workflow skills.",
   "keywords": [

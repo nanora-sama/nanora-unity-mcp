@@ -25,7 +25,7 @@ namespace NanoraUnityMCP.Core
         /// Using a unique name to avoid conflicts with official Unity MCP implementations.
         /// </summary>
         public const string ServerName = "nanora-unity-mcp";
-        public const string Version = "1.2.0";
+        public const string Version = "1.2.1";
 
         // InitializeOnLoad runs on the main thread; HTTP callbacks must not call Application.dataPath.
         private static readonly string s_ProjectPath = Path.GetDirectoryName(Application.dataPath);

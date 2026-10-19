@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.2.1] - 2026-10-20
+
+### Fixed
+
+- `simulate_input` accepts Input System key names such as `DownArrow`, `UpArrow`, `F5` and `LeftShift`. Before, names that are also a `KeyCode` went to the focused Editor window as an Editor event (`Key pressed: DownArrow (Editor Event)`), so the game's `InputAction` never saw them; only the short names (`Down`, `Up`) worked.
+- `compile_project` called again after a failed compile, with nothing changed, reported `SUCCESS` with 0 errors because Unity did not compile again. It now reports `FAILED` with the errors from the last compile.
+
 ## [1.2.0] - 2026-10-19
 
 Open-source release. The package is now MIT licensed and the testing tools of the former paid Test Pro edition are part of it.
