@@ -200,6 +200,26 @@ Unityはスクリプトコンパイル時にドメインリロードを行い、
 2. `mcp_status` で接続を確認してから次の操作
 3. `configure_editor` で `optimize_for_mcp` を実行しておく
 
+## Unity のコードを書く・直すとき
+
+`execute_csharp` のコードや、利用者のプロジェクトに書くスクリプトは、対象の Unity 版の公式 API に合わせる。
+古い手本をそのまま写すと、非推奨 API や毎フレームの無駄が利用者のプロジェクトに入る。
+
+- **検索**: `FindObjectOfType` / `FindObjectsOfType` は Unity 6 で非推奨。一つなら `FindAnyObjectByType<T>()`、
+  複数なら `FindObjectsByType<T>(FindObjectsSortMode.None)`。`FindFirstObjectByType` と並び順の指定は
+  6000.5〜6000.6 で非推奨になるので、新しいコードで順序に依存しない。
+  （[FindObjectOfType](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/Object.FindObjectOfType.html)、
+  [FindObjectsByType](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/Object.FindObjectsByType.html)）
+- **毎フレームの処理**: `Update` で検索・`GetComponent`・`Camera.main`・LINQ・文字列連結をしない。参照は `Awake` / `OnEnable`
+  で取ってキャッシュし、毎フレームのマネージド割り当てを 0 に近づける。高頻度のコールバックに渡すデリゲートも使い回す。
+  （[Garbage collector overview](https://docs.unity3d.com/6000.3/Documentation/Manual/performance-garbage-collector.html)）
+- **static 状態**: Domain Reload を無効にした Play では static フィールドとイベント購読が残る。
+  `[RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]` でリセットする。
+  （[Enter Play mode with domain reload disabled](https://docs.unity3d.com/6000.3/Documentation/Manual/domain-reloading.html)）
+- **非同期**: `Awaitable` は同じインスタンスを複数回 `await` しない。破棄で止める処理は `destroyCancellationToken` を使う。
+  （[Awaitable](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/Awaitable.html)）
+- **書いた後**: `compile_project` を `include_warnings: true` で呼び、変更したファイルに `CS0618`（非推奨）が増えていないか確かめる。
+
 ## レシピ
 
 - [シーン操作](recipes/scene-operations.md) -- シーンの構築・オブジェクト操作の定型パターン

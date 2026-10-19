@@ -347,8 +347,8 @@ namespace NanoraUnityMCP.Tools
             {
                 evalResult = EvaluateAssetDatabaseExpression(code);
             }
-            // FindObjectOfType<T>() or Object.FindObjectOfType<T>()
-            else if (code.Contains("FindObjectOfType"))
+            // FindAnyObjectByType<T>(), FindFirstObjectByType<T>() or the deprecated FindObjectOfType<T>()
+            else if (code.Contains("FindAnyObjectByType") || code.Contains("FindFirstObjectByType") || code.Contains("FindObjectOfType"))
             {
                 evalResult = EvaluateFindObjectOfTypeExpression(code);
             }
@@ -524,12 +524,14 @@ namespace NanoraUnityMCP.Tools
             throw new ExecutionException($"Unsupported AssetDatabase expression: {code}");
         }
 
+        private static readonly Regex FindObjectExpression = new Regex(
+            @"^(?:UnityEngine\.Object\.|Object\.)?(FindAnyObjectByType|FindFirstObjectByType|FindObjectOfType)\s*<\s*(\w+)\s*>\s*\(\s*\)(?:\.(\w+))?$");
+
         private object EvaluateFindObjectOfTypeExpression(string code)
         {
             // Patterns:
-            // FindObjectOfType<TypeName>()
-            // Object.FindObjectOfType<TypeName>()
-            // UnityEngine.Object.FindObjectOfType<TypeName>()
+            // FindAnyObjectByType<TypeName>() / FindFirstObjectByType<TypeName>() / FindObjectOfType<TypeName>()
+            // with an optional Object. or UnityEngine.Object. qualifier
             // TypeName.Instance (static singleton)
             // Any of above followed by .PropertyName
 
@@ -542,16 +544,15 @@ namespace NanoraUnityMCP.Tools
                 return GetSingletonValue(typeName, propertyName);
             }
 
-            // FindObjectOfType pattern
-            var match = Regex.Match(code, @"^(?:UnityEngine\.Object\.|Object\.)?FindObjectOfType\s*<\s*(\w+)\s*>\s*\(\s*\)(?:\.(\w+))?$");
+            var match = FindObjectExpression.Match(code);
             if (match.Success)
             {
-                var typeName = match.Groups[1].Value;
-                var propertyName = match.Groups[2].Success ? match.Groups[2].Value : null;
-                return GetFindObjectOfTypeValue(typeName, propertyName);
+                var typeName = match.Groups[2].Value;
+                var propertyName = match.Groups[3].Success ? match.Groups[3].Value : null;
+                return GetFindObjectOfTypeValue(match.Groups[1].Value, typeName, propertyName);
             }
 
-            throw new ExecutionException($"Unsupported FindObjectOfType expression: {code}");
+            throw new ExecutionException($"Unsupported find expression: {code}");
         }
 
         private object GetSingletonValue(string typeName, string propertyName)
@@ -586,7 +587,7 @@ namespace NanoraUnityMCP.Tools
             return GetPropertyValue(instance, type, propertyName);
         }
 
-        private object GetFindObjectOfTypeValue(string typeName, string propertyName)
+        private object GetFindObjectOfTypeValue(string methodName, string typeName, string propertyName)
         {
             // Find the type in loaded assemblies
             Type type = FindTypeByName(typeName);
@@ -595,14 +596,14 @@ namespace NanoraUnityMCP.Tools
                 throw new ExecutionException($"Type not found: {typeName}");
             }
 
-            // Call FindObjectOfType using reflection
-            var findMethod = typeof(UnityEngine.Object).GetMethod("FindObjectOfType", new Type[0]);
-            var genericMethod = findMethod.MakeGenericMethod(type);
-            var instance = genericMethod.Invoke(null, null);
+            // All three spellings resolve to the non-deprecated lookup (no reflection on obsolete APIs).
+            var instance = methodName == "FindAnyObjectByType"
+                ? UnityCompatibility.FindAnyObjectByType(type)
+                : UnityCompatibility.FindFirstObjectByType(type);
 
             if (instance == null)
             {
-                return $"FindObjectOfType<{typeName}>() returned null";
+                return $"{methodName}<{typeName}>() returned null";
             }
 
             // If no property specified, return basic info
