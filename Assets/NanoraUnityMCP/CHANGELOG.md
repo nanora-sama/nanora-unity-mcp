@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Skill recipes and references use `FindObjectsByType(FindObjectsSortMode.None)` instead of the Unity 6-deprecated `FindObjectsOfType`, and `unity-mcp-skill` has a "Writing Unity code" section (find APIs, per-frame work, static state with domain reload disabled, Awaitable) linked to the Unity 6.3 docs. `unity-pre-pr-check` treats new obsolete-API warnings in changed files as findings.
+- `execute_csharp` reflection mode accepts `FindAnyObjectByType<T>()` and `FindFirstObjectByType<T>()` as well as `FindObjectOfType<T>()`, and resolves them without reflecting on the deprecated method.
+- `query_objects` type selectors call `FindObjectsByType` through `UnityCompatibility` instead of reflecting on `FindObjectsOfType`.
+
 ## [1.2.0] - 2026-10-19
 
 Open-source release. The package is now MIT licensed and the testing tools of the former paid Test Pro edition are part of it.

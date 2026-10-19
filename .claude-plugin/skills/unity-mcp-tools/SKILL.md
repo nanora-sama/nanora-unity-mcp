@@ -98,6 +98,12 @@ The MCP server runs inside Unity Editor. Check `.mcp.json` in the project root f
 3. mcp_status → verify server state
 ```
 
+## Writing Unity code (Unity 6)
+- Use `FindAnyObjectByType<T>()` / `FindObjectsByType<T>(FindObjectsSortMode.None)`; `FindObjectOfType` / `FindObjectsOfType` are deprecated in Unity 6. In `execute_csharp`, qualify as `UnityEngine.Object.`
+- Do not search, call `GetComponent`, `Camera.main`, LINQ or build strings in `Update`; cache references in `Awake` / `OnEnable`
+- Reset static state with `[RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]` so it works with domain reload disabled
+- After editing scripts, run `compile_project` with `include_warnings: true` and check the changed files for new `CS0618` warnings
+
 ## U-Selector Syntax
 - `#ObjectName` - by exact name; `*` and `?` wildcards (`#Enemy*`)
 - `.ComponentType` - has component (`.Camera`, `.Rigidbody`)
