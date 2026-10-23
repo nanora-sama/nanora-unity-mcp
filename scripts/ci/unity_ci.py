@@ -2,6 +2,7 @@
 import argparse
 import json
 import os
+import re
 from pathlib import Path
 import sys
 import xml.etree.ElementTree as ET
@@ -80,14 +81,28 @@ def check_license(env):
     GitHub does not give Actions secrets to Dependabot or fork pull requests; Unity then fails with
     "Licensing method: <none>" and only "No NUnit results" is reported, which reads like a test failure.
     """
-    missing = [name for name in LICENSE_VARIABLES if not env.get(name, "").strip()]
+    # Determine if any Unity license variable is present. Support generic UNITY_LICENSE as well as
+    # version‑specific variants such as UNITY_LICENSE_2021, UNITY_LICENSE_6000, etc.
+    license_vars = ["UNITY_LICENSE"] + [key for key in env if re.match(r"^UNITY_LICENSE_", key)]
+    license_present = any(env.get(var, "").strip() for var in license_vars)
+    email_present = bool(env.get("UNITY_EMAIL", "").strip())
+    password_present = bool(env.get("UNITY_PASSWORD", "").strip())
+
+    missing = []
+    if not license_present:
+        missing.append("UNITY_LICENSE (or UNITY_LICENSE_<version>)")
+    if not email_present:
+        missing.append("UNITY_EMAIL")
+    if not password_present:
+        missing.append("UNITY_PASSWORD")
     if missing:
         actor = env.get("GITHUB_ACTOR", "?")
         event = env.get("GITHUB_EVENT_NAME", "?")
         raise ValueError(
             f"Unity license secrets are empty for this run ({', '.join(missing)}; actor={actor}, event={event}). "
             "Dependabot and fork pull requests do not receive Actions secrets: add UNITY_LICENSE_6000/2021/2022, "
-            "UNITY_EMAIL and UNITY_PASSWORD as Dependabot secrets, or run the workflow with workflow_dispatch.")
+            "UNITY_EMAIL and UNITY_PASSWORD as Dependabot secrets, or run the workflow with workflow_dispatch."
+        )
     print("Unity license secrets are present")
 
 
