@@ -68,7 +68,7 @@ Unity Editor内でC#コードを動的実行する。Roslynコンパイル + リ
 
 ```json
 {"name": "execute_csharp", "arguments": {
-  "code": "var cameras = FindObjectsOfType<Camera>(); return string.Join(\"\\n\", cameras.Select(c => $\"{c.name}: fov={c.fieldOfView}\"));",
+  "code": "var cameras = UnityEngine.Object.FindObjectsByType<Camera>(FindObjectsSortMode.None); return string.Join(\"\\n\", cameras.Select(c => $\"{c.name}: fov={c.fieldOfView}\"));",
   "include_usings": ["System.Linq"]
 }}
 ```

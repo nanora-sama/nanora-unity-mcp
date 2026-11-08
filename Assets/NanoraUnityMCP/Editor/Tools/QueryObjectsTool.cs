@@ -478,23 +478,13 @@ namespace NanoraUnityMCP.Tools
                 return results;
             }
 
-            // Use FindObjectsOfType
-            var findMethod = typeof(UnityEngine.Object)
-                .GetMethod("FindObjectsOfType", new Type[] { typeof(bool) })
-                ?.MakeGenericMethod(componentType);
-
-            if (findMethod != null)
+            // Call the non-generic API directly. Reflecting on the deprecated FindObjectsOfType
+            // hid the obsolete call from the compiler and would silently return nothing once removed.
+            foreach (var comp in UnityCompatibility.FindObjectsByType(componentType, includeInactive))
             {
-                var components = findMethod.Invoke(null, new object[] { includeInactive }) as UnityEngine.Object[];
-                if (components != null)
+                if (comp is Component c && c.gameObject != null)
                 {
-                    foreach (var comp in components)
-                    {
-                        if (comp is Component c && c.gameObject != null)
-                        {
-                            results.Add(c.gameObject);
-                        }
-                    }
+                    results.Add(c.gameObject);
                 }
             }
 

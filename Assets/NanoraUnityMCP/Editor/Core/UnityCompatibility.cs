@@ -60,5 +60,34 @@ namespace NanoraUnityMCP.Core
             return Object.FindObjectsOfType(type);
 #endif
         }
+
+        /// <summary>
+        /// Replacement for Object.FindObjectsByType(type, FindObjectsInactive, FindObjectsSortMode.None)
+        /// Falls back to Object.FindObjectsOfType(type, includeInactive) on Unity 2021.3.
+        /// </summary>
+        public static Object[] FindObjectsByType(System.Type type, bool includeInactive)
+        {
+#if UNITY_2022_1_OR_NEWER
+            return Object.FindObjectsByType(type,
+                includeInactive ? FindObjectsInactive.Include : FindObjectsInactive.Exclude,
+                FindObjectsSortMode.None);
+#else
+            return Object.FindObjectsOfType(type, includeInactive);
+#endif
+        }
+
+        /// <summary>
+        /// Replacement for Object.FindAnyObjectByType(type): returns any loaded instance.
+        /// Unity 6000.6 deprecates FindFirstObjectByType in favour of this order-independent call.
+        /// Falls back to Object.FindObjectOfType(type) on Unity 2021.3.
+        /// </summary>
+        public static Object FindAnyObjectByType(System.Type type)
+        {
+#if UNITY_2022_1_OR_NEWER
+            return Object.FindAnyObjectByType(type);
+#else
+            return Object.FindObjectOfType(type);
+#endif
+        }
     }
 }

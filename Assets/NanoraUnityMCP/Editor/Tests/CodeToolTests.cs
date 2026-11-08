@@ -168,7 +168,7 @@ return go.name;"
         public async Task ExecuteCSharp_RuntimeFailureAfterMutation_DoesNotReplayMutation()
         {
             SkipIfRoslynNotAvailable();
-            var existingIds = Object.FindObjectsOfType<GameObject>()
+            var existingIds = UnityCompatibility.FindObjectsByType<GameObject>()
                 .Select(obj => obj.GetInstanceID()).ToArray();
             try
             {
@@ -178,7 +178,7 @@ return go.name;"
                 {
                     ["code"] = "GameObject.CreatePrimitive(PrimitiveType.Cube).GetComponent<Rigidbody>().mass = 1f;"
                 });
-                var created = Object.FindObjectsOfType<GameObject>()
+                var created = UnityCompatibility.FindObjectsByType<GameObject>()
                     .Where(obj => !existingIds.Contains(obj.GetInstanceID())).ToArray();
 
                 Assert.IsTrue(result.IsError, result.Content[0].Text);
@@ -187,7 +187,7 @@ return go.name;"
             }
             finally
             {
-                foreach (var obj in Object.FindObjectsOfType<GameObject>()
+                foreach (var obj in UnityCompatibility.FindObjectsByType<GameObject>()
                     .Where(obj => !existingIds.Contains(obj.GetInstanceID())))
                     Object.DestroyImmediate(obj);
             }
@@ -221,6 +221,27 @@ return go.name;"
             Assert.IsTrue(result.IsError, result.Content[0].Text);
         }
 
+        [TestCase("FindAnyObjectByType<Camera>()")]
+        [TestCase("Object.FindAnyObjectByType<Camera>()")]
+        [TestCase("UnityEngine.Object.FindFirstObjectByType<Camera>()")]
+        [TestCase("FindObjectOfType<Camera>()")]
+        public async Task ExecuteCSharp_UnavailableCompilerFindExpression_FindsObject(string code)
+        {
+            // Skills and Unity 6 docs use FindAnyObjectByType / FindFirstObjectByType; reflection mode must accept them.
+            var probe = new GameObject("McpFindExpressionProbe");
+            probe.AddComponent<Camera>();
+            try
+            {
+                var result = await ExecuteWithoutRoslyn(new JObject { ["code"] = code });
+                Assert.IsFalse(result.IsError, result.Content[0].Text);
+                StringAssert.Contains("Found:", result.Content[0].Text);
+            }
+            finally
+            {
+                if (probe != null) Object.DestroyImmediate(probe);
+            }
+        }
+
         [TestCase("EditorApplication.isPlaying")]
         [TestCase("return EditorApplication.isPlaying;")]
         [TestCase("EditorApplication.isPlaying;")]
@@ -252,7 +273,7 @@ return go.name;"
             var available = typeof(RoslynCompiler).GetField("s_RoslynAvailable", flags);
             var previousInitialized = initialized.GetValue(null);
             var previousAvailable = available.GetValue(null);
-            var existingIds = Object.FindObjectsOfType<GameObject>()
+            var existingIds = UnityCompatibility.FindObjectsByType<GameObject>()
                 .Select(obj => obj.GetInstanceID()).ToArray();
             try
             {
@@ -264,7 +285,7 @@ return go.name;"
             {
                 initialized.SetValue(null, previousInitialized);
                 available.SetValue(null, previousAvailable);
-                foreach (var obj in Object.FindObjectsOfType<GameObject>()
+                foreach (var obj in UnityCompatibility.FindObjectsByType<GameObject>()
                     .Where(obj => !existingIds.Contains(obj.GetInstanceID())))
                     Object.DestroyImmediate(obj);
             }
@@ -305,7 +326,7 @@ return go.name;"
         public async Task ExecuteCSharp_RuntimeFailure_DoesNotRepeatSideEffects()
         {
             SkipIfRoslynNotAvailable();
-            var initialObjects = Object.FindObjectsOfType<GameObject>();
+            var initialObjects = UnityCompatibility.FindObjectsByType<GameObject>();
             try
             {
                 var result = await new ExecuteCSharpTool().ExecuteAsync(new JObject
@@ -314,7 +335,7 @@ return go.name;"
                     // Creating the cube succeeds, then accessing the absent Camera throws.
                     ["code"] = "return GameObject.CreatePrimitive(PrimitiveType.Cube).GetComponent<Camera>().name;"
                 });
-                var createdObjects = Object.FindObjectsOfType<GameObject>().Except(initialObjects).ToArray();
+                var createdObjects = UnityCompatibility.FindObjectsByType<GameObject>().Except(initialObjects).ToArray();
 
                 Assert.AreEqual(1, createdObjects.Length, "A failed execution must not create a second cube through reflection.");
                 Assert.IsTrue(result.IsError, result.Content[0].Text);
@@ -322,7 +343,7 @@ return go.name;"
             }
             finally
             {
-                foreach (var created in Object.FindObjectsOfType<GameObject>().Except(initialObjects))
+                foreach (var created in UnityCompatibility.FindObjectsByType<GameObject>().Except(initialObjects))
                     Object.DestroyImmediate(created);
             }
         }

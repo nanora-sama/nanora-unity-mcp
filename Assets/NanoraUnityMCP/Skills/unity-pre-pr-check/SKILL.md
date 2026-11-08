@@ -24,7 +24,10 @@ with the reason; do not require an unrelated Editor session.
    reconnect to the same project and confirm compilation / importing have finished.
    Read the actual compilation result and `get_compilation_errors` as needed.
    A transport success flag is not a successful compilation. Fix relevant failures
-   within scope and recheck before relying on runtime tests.
+   within scope and recheck before relying on runtime tests. Compile with
+   `include_warnings: true` and compare the changed files with the base: new `CS0618` /
+   `CS0672` (obsolete API) warnings are findings, e.g. `FindObjectOfType` in Unity 6 —
+   use `FindAnyObjectByType` / `FindObjectsByType(FindObjectsSortMode.None)` instead.
 2. **Run relevant tests.** Use `run_tests` with `test_mode: "EditMode"` for Editor code
    and the needed PlayMode / behavior tests. Wait for completion and inspect actual
    results; "Tests started", zero tests when tests were expected, stale results,
