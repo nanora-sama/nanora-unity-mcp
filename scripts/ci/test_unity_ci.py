@@ -34,6 +34,27 @@ class CiVerificationTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             check_license({})
 
+    def test_license_preflight_names_the_missing_secret_and_the_likely_cause(self):
+        empty = {name: "" for name in LICENSE_VARIABLES}
+        cases = (
+            ("dependabot[bot]", "pull_request", "Dependabot secrets"),
+            ("contributor", "pull_request", "Fork pull requests"),
+            ("nanora-sama", "push", "Settings > Secrets and variables > Actions"),
+            ("nanora-sama", "workflow_dispatch", "Settings > Secrets and variables > Actions"),
+        )
+        for actor, event, hint in cases:
+            env = dict(empty, UNITY_LICENSE_SECRET="UNITY_LICENSE_2022", GITHUB_ACTOR=actor,
+                       GITHUB_EVENT_NAME=event, GITHUB_REPOSITORY="owner/repo")
+            with self.subTest(actor=actor, event=event), self.assertRaises(ValueError) as caught:
+                check_license(env)
+            message = str(caught.exception)
+            self.assertIn(hint, message)
+            self.assertIn("UNITY_LICENSE_2022", message)
+            self.assertIn("UNITY_EMAIL", message)
+        with self.assertRaises(ValueError) as caught:
+            check_license(dict(empty, GITHUB_ACTOR="nanora-sama", GITHUB_EVENT_NAME="push"))
+        self.assertNotIn("Dependabot", str(caught.exception))
+
     def test_nunit_evidence_cannot_pass_without_completed_passing_tests(self):
         with tempfile.TemporaryDirectory() as folder:
             with self.assertRaises(ValueError):

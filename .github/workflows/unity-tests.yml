@@ -66,6 +66,7 @@ jobs:
         id: license
         env:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE_6000 }}
+          UNITY_LICENSE_SECRET: UNITY_LICENSE_6000
           UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
         run: python3 scripts/ci/unity_ci.py license
@@ -148,6 +149,7 @@ jobs:
         id: license
         env:
           UNITY_LICENSE: ${{ secrets[matrix.licenseSecret] }}
+          UNITY_LICENSE_SECRET: ${{ matrix.licenseSecret }}
           UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
         run: python3 scripts/ci/unity_ci.py license

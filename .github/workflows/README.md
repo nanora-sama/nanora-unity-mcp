@@ -22,6 +22,8 @@ The GameCI action is pinned to `70a43fd07570eba926a875a9708c5be06adb092d`, the N
 | `UNITY_EMAIL` | Unity account email |
 | `UNITY_PASSWORD` | Unity account password |
 
+Secrets belong to the repository, not to its history: a newly created or re-created repository starts with none, and every Unity job then stops at `Require Unity license secrets` until all five are added under Settings > Secrets and variables > Actions. The step names the missing secret and whether the cause is a Dependabot pull request, a fork pull request or an unconfigured repository.
+
 Store the original ULF XML in GitHub Secrets; never print credentials or license contents in logs. The older `UNITY_LICENSE` secret is not read by these matrix jobs. The existing `activation.yml` is a legacy manual-activation-file helper; Personal CI setup follows Unity Hub activation as documented by GameCI, not manual ALF upload.
 
 ## Required evidence
