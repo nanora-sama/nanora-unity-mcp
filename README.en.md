@@ -2,7 +2,7 @@
 
 ![nanora-unity-mcp](media/social-preview.png)
 
-**An MCP server that lives inside the Unity Editor.** Let Claude Code, Codex, Cursor or any MCP client build, play, test and profile your Unity project — with nothing else to install.
+**An MCP server that lives inside the Unity Editor.** Let Claude Code, Codex, Cursor or any MCP-capable coding agent build, play, test and profile your Unity project — with nothing else to install.
 
 [![Unity 2021.3+](https://img.shields.io/badge/Unity-2021.3%2B-black?logo=unity)](https://unity.com/)
 [![Unity 6](https://img.shields.io/badge/Unity%206-Supported-black?logo=unity)](https://unity.com/releases/unity-6)
@@ -13,9 +13,9 @@
 ## Why this one
 
 - **Unity is all you need.** The server is C# running in the Editor process. No Node.js, no Python, no separate server binary, no account or subscription.
-- **Codex and Claude on the same server.** Streamable HTTP at `/mcp` for Codex and other HTTP clients; SSE at `/sse` for Claude Code, Claude Desktop and Cursor.
+- **Works with any coding agent.** The server speaks both Streamable HTTP (`/mcp`) and SSE (`/sse`), so any MCP-capable coding agent can connect. Tested with Claude Code, Codex, Cursor and Claude Desktop.
 - **Checks its own work.** Playwright-style selectors, `wait_for_selector`, `assert_ui_state` and `simulate_input` let the AI play the game and verify the result, and the bundled skills make "did it actually apply?" part of the workflow.
-- **Many projects, no mix-ups.** Each project gets a fixed port from its path, `.mcp.json` is written for Claude Code, and `/health` names the project so a client can confirm it reached the right Editor.
+- **Many projects, no mix-ups.** Each project gets a fixed port from its path, the agent's connection settings (such as `.mcp.json`) are written for you, and `/health` names the project so a client can confirm it reached the right Editor.
 - **Local only.** Binds to 127.0.0.1, rejects foreign browser origins, keeps every reply with the client that asked.
 
 ## Install
@@ -32,22 +32,23 @@ https://github.com/nanora-sama/nanora-unity-mcp.git?path=Assets/NanoraUnityMCP
 
 Requires Unity 2021.3 LTS or later. The server starts with the Editor; the Setup Wizard (**Window > Unity MCP > Setup Wizard**) opens on first launch.
 
-## Connect a client
+## Connect your coding agent
 
 The port is chosen from the project path (51726–51825) and shown in **Window > Unity MCP Server**.
 
-| Client | How |
+| Agent | How |
 |---|---|
 | Claude Code | Start `claude` in the project folder. `.mcp.json` is created automatically. |
 | Codex | `codex mcp add nanora-unity-mcp --url http://127.0.0.1:<PORT>/mcp` |
 | Claude Desktop | `"nanora-unity-mcp": { "url": "http://localhost:<PORT>/sse" }` in `claude_desktop_config.json` |
 | Cursor | the same entry in `.cursor/mcp.json` |
+| Any other MCP-capable agent | register `http://127.0.0.1:<PORT>/mcp` (Streamable HTTP) or `http://127.0.0.1:<PORT>/sse` (SSE) as an MCP server |
 
-The Setup Wizard can configure detected clients for you. Enable **Background Execution** in the wizard (or call `configure_editor` with `optimize_for_mcp`) so Unity answers while it is not focused.
+The Setup Wizard can configure detected agents for you. Enable **Background Execution** in the wizard (or call `configure_editor` with `optimize_for_mcp`) so Unity answers while it is not focused.
 
 ## See it build something
 
-Six prompts, one per level, and nothing touched by hand after each prompt. Claude Code drove Unity through this server, checked its own work with screenshots, input and tests, and fixed what it found. Level 6 puts the pieces together into a game-stream screen:
+Six prompts, one per level, and nothing touched by hand after each prompt. The AI (Claude Code in this recording) drove Unity through this server, checked its own work with screenshots, input and tests, and fixed what it found. Level 6 puts the pieces together into a game-stream screen:
 
 ![Level 6: the game, the character wipe and the stream overlay, all built by the AI](media/demo/demo-stream.gif)
 
@@ -111,9 +112,9 @@ Full reference: [Documentation~/ToolReference.md](Assets/NanoraUnityMCP/Document
 ui:#StartButton         UI Toolkit element by name
 ```
 
-## Claude Code skills
+## Bundled skills
 
-Installed into `<Project>/.claude/skills/` when Claude Code is configured; your edits are kept on update (`install_skills` with `force: true` overwrites).
+For Claude Code for now: installed into `<Project>/.claude/skills/` when Claude Code is configured; your edits are kept on update (`install_skills` with `force: true` overwrites).
 
 | Skill | Does |
 |---|---|
