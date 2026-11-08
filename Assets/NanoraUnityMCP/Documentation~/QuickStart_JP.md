@@ -1,5 +1,7 @@
 # nanora-unity-mcp クイックスタート
 
+[English](QuickStart.md) | **日本語**
+
 Unity Editor の中で動く MCP サーバーです。Claude Code・Codex・Cursor などの AI から Unity を操作できます。
 Node.js や Python、別のサーバーは要りません。導入から最初の操作まで 5 分ほどです。
 

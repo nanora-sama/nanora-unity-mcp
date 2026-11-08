@@ -1,5 +1,7 @@
 # nanora-unity-mcp Quick Start
 
+**English** | [日本語](QuickStart_JP.md)
+
 An MCP server that runs inside the Unity Editor, so Claude Code, Codex, Cursor and other MCP clients can operate Unity.
 No Node.js, Python or separate server. About five minutes from install to the first command.
 

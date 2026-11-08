@@ -16,6 +16,7 @@ const outputs = [
   ['icon', 'media/icon-512.png', 1],
   ['icon', 'media/icon-160.png', 160 / 512],
   ['social', 'media/social-preview.png', 1],
+  ['social-ja', 'media/social-preview-ja.png', 1],
   ['booth-01', 'media/booth/booth-01-main.png', 1],
   ['booth-02', 'media/booth/booth-02-reasons.png', 1],
   ['booth-03', 'media/booth/booth-03-tools.png', 1],

@@ -8,7 +8,7 @@
 [![Unity 6](https://img.shields.io/badge/Unity%206-Supported-black?logo=unity)](https://unity.com/releases/unity-6)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-日本語のクイックスタート: [Assets/NanoraUnityMCP/Documentation~/QuickStart_JP.md](Assets/NanoraUnityMCP/Documentation~/QuickStart_JP.md)
+**English** | [日本語](README.ja.md)
 
 ## Why this one
 
@@ -45,7 +45,32 @@ The port is chosen from the project path (51726–51825) and shown in **Window >
 
 The Setup Wizard can configure detected clients for you. Enable **Background Execution** in the wizard (or call `configure_editor` with `optimize_for_mcp`) so Unity answers while it is not focused.
 
-## Try it
+## See it build something
+
+Six prompts, one per level, and nothing touched by hand after each prompt. Claude Code drove Unity through this server, checked its own work with screenshots, input and tests, and fixed what it found. Level 6 puts the pieces together into a game-stream screen:
+
+![Level 6: the game, the character wipe and the stream overlay, all built by the AI](media/demo/demo-stream.gif)
+
+<table>
+<tr>
+<td align="center"><img src="media/demo/demo-game.gif" height="260" alt="Level 1: a neon shooter built from an empty scene"><br><sub>Lv.1 a shooter from an empty scene</sub></td>
+<td align="center"><img src="media/demo/demo-camera.gif" height="260" alt="Level 3: a dolly, crane and pull-back camera loop"><br><sub>Lv.3 camera work</sub></td>
+<td align="center"><img src="media/demo/demo-menu.gif" height="260" alt="Level 4: a stylised start menu that moves the camera"><br><sub>Lv.4 start menu</sub></td>
+</tr>
+</table>
+
+| Lv | The prompt (abridged) | What the AI did to check it |
+|---|---|---|
+| 1 | Build a vertical shooter from scratch. Left/right to move, Space to shoot, +1 per hit, night-neon look. Then play it with `run_e2e_test`. | The first run fired no bullets. It pressed one key at a time, read the game's values and this server's own code, found that a held key was being released, re-pressed it every 200 ms, and passed on the third run. |
+| 2 | Put the Live2D character in a new scene and make three exaggerated expressions: a beaming smile, turning pale, a wink with the tongue out. | Read each parameter's range and its physics links first. "Pale" came out grey, so it found the overlay that draws it and tinted it blue. |
+| 3 | A 12-second loop: dolly round to the face, crane down to a low angle, pull back to full body. Render at 30 fps and check the frames. | Rendered all 360 frames and read the camera values. The close-up cut off the hair ornament; the third render was clean. |
+| 4 | A stylised start screen: a title and three menu items, Up/Down and Enter, a camera switch per item. | Pressed the keys and looked: a clipped letter in the title, the wrong weekday, a line across the notice. Fixed all three. |
+| 5 | A dim warehouse streaming room with flickering LEDs, built in Blender and brought into Unity. | Compared renders with a reference picture until they matched. (The Blender part uses other tools.) |
+| 6 | Bring everything together into a game-stream screen: the room, the character, the cameras, the start screen; "Start stream" shows the game large with the character in a wipe. | The first screen let the game scene take the main camera, and the wipe hid the controls. It fixed the camera and moved the game 160 px left. |
+
+The character (nanora) and the demo projects are not included; the package ships the server, the skills and the sample below.
+
+### Try it yourself
 
 Import **Samples > Shooting Game Sample** from the package page, then ask your AI:
 
@@ -54,9 +79,7 @@ Build the shooting game sample scene, play it, tap Space five times,
 check that ScoreText is greater than 0, and show me a screenshot.
 ```
 
-It will call `execute_menu_item`, `manage_playmode`, `simulate_input`, `assert_ui_state` and `capture_screenshot`. See the [sample README](Assets/NanoraUnityMCP/Samples~/ShootingGame/README.md).
-
-![The sample driven over MCP: score 3 after simulated Space taps](media/screenshot-editor.png)
+It will call `execute_menu_item`, `manage_playmode`, `simulate_input`, `assert_ui_state` and `capture_screenshot`. More prompts are in the [sample README](Assets/NanoraUnityMCP/Samples~/ShootingGame/README.md).
 
 ## Tools
 
@@ -132,7 +155,7 @@ node scripts/mcp/verify-codex.mjs       # an installed Codex client lists and ca
 
 ## Help
 
-- Quick start and troubleshooting: [日本語](Assets/NanoraUnityMCP/Documentation~/QuickStart_JP.md) / [English](Assets/NanoraUnityMCP/Documentation~/QuickStart.md)
+- Quick start and troubleshooting: [English](Assets/NanoraUnityMCP/Documentation~/QuickStart.md) / [日本語](Assets/NanoraUnityMCP/Documentation~/QuickStart_JP.md)
 - Questions, bugs, ideas: [SUPPORT.md](SUPPORT.md) → [Issues](https://github.com/nanora-sama/nanora-unity-mcp/issues/new/choose)
 - Security: [SECURITY.md](SECURITY.md) · Contributing: [CONTRIBUTING.md](CONTRIBUTING.md)
 
