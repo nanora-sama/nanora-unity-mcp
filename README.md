@@ -2,7 +2,7 @@
 
 ![nanora-unity-mcp](media/social-preview-ja.png)
 
-**Unity Editor の中で動く MCP サーバー。** Claude Code・Codex・Cursor などの MCP クライアントから、Unity プロジェクトを作る・遊ぶ・テストする・計測する。ほかに入れるものはありません。
+**Unity Editor の中で動く MCP サーバー。** Claude Code・Codex・Cursor など、MCP に対応したコーディングエージェントから、Unity プロジェクトを作る・遊ぶ・テストする・計測する。ほかに入れるものはありません。
 
 [![Unity 2021.3+](https://img.shields.io/badge/Unity-2021.3%2B-black?logo=unity)](https://unity.com/)
 [![Unity 6](https://img.shields.io/badge/Unity%206-Supported-black?logo=unity)](https://unity.com/releases/unity-6)
@@ -13,9 +13,9 @@
 ## 特長
 
 - **Unity だけで動く。** サーバーは Editor のプロセスで動く C# です。Node.js も Python も、別のサーバーも、アカウントや契約も要りません。
-- **Codex と Claude が同じサーバーに。** Codex などの HTTP クライアントは `/mcp`（Streamable HTTP）、Claude Code・Claude Desktop・Cursor は `/sse`（SSE）。
+- **エージェントを選ばない。** Streamable HTTP（`/mcp`）と SSE（`/sse`）の両方で待ち受けるので、MCP に対応したコーディングエージェントならつなげます。動作を確かめているのは Claude Code・Codex・Cursor・Claude Desktop です。
 - **自分の作業を確かめる。** Playwright 風のセレクタ、`wait_for_selector`・`assert_ui_state`・`simulate_input` で、AI がゲームを遊んで結果を確かめます。同梱の Skill で「本当に反映されたか」の確認を作業の手順に入れます。
-- **Unity を何個開いても混線しない。** ポートはプロジェクトのパスから決まり、Claude Code 用の `.mcp.json` も自動で書きます。`/health` がプロジェクト名を返すので、正しい Editor につないだか確かめられます。
+- **Unity を何個開いても混線しない。** ポートはプロジェクトのパスから決まり、エージェントの接続設定（`.mcp.json` など）も書きます。`/health` がプロジェクト名を返すので、正しい Editor につないだか確かめられます。
 - **ローカルだけ。** 127.0.0.1 だけで待ち受け、外部のブラウザーからの要求は断り、応答は要求したクライアントにだけ返します。
 
 ## 導入
@@ -32,22 +32,23 @@ https://github.com/nanora-sama/nanora-unity-mcp.git?path=Assets/NanoraUnityMCP
 
 Unity 2021.3 LTS 以降。サーバーは Editor と一緒に起動し、初回は Setup Wizard（**Window > Unity MCP > Setup Wizard**）が開きます。
 
-## クライアントをつなぐ
+## コーディングエージェントをつなぐ
 
 ポートはプロジェクトのパスから決まり（51726〜51825）、**Window > Unity MCP Server** に表示されます。
 
-| クライアント | 方法 |
+| エージェント | 方法 |
 |---|---|
 | Claude Code | プロジェクトのフォルダで `claude` を起動。`.mcp.json` は自動で作られます |
 | Codex | `codex mcp add nanora-unity-mcp --url http://127.0.0.1:<PORT>/mcp` |
 | Claude Desktop | `claude_desktop_config.json` に `"nanora-unity-mcp": { "url": "http://localhost:<PORT>/sse" }` |
 | Cursor | 同じ内容を `.cursor/mcp.json` に |
+| そのほかの MCP 対応エージェント | `http://127.0.0.1:<PORT>/mcp`（Streamable HTTP）か `http://127.0.0.1:<PORT>/sse`（SSE）を MCP サーバーとして登録 |
 
-見つかったクライアントは Setup Wizard が設定できます。Unity が前面にないときも応答するよう、ウィザードで **Background Execution** を有効にしてください（`configure_editor` の `optimize_for_mcp` でも可）。
+見つかったエージェントは Setup Wizard が設定できます。Unity が前面にないときも応答するよう、ウィザードで **Background Execution** を有効にしてください（`configure_editor` の `optimize_for_mcp` でも可）。
 
 ## 作っているところを見る
 
-Lv ごとに指示は 1 本だけ。指示のあとは人の手を入れていません。Claude Code がこのサーバーで Unity を操作し、スクリーンショット・入力・テストで自分の作業を確かめ、見つけたところを直しました。Lv.6 で全部を合わせて、ゲーム配信の画面にしています。
+Lv ごとに指示は 1 本だけ。指示のあとは人の手を入れていません。AI（この録画では Claude Code）がこのサーバーで Unity を操作し、スクリーンショット・入力・テストで自分の作業を確かめ、見つけたところを直しました。Lv.6 で全部を合わせて、ゲーム配信の画面にしています。
 
 ![Lv.6: ゲーム・キャラクターのワイプ・配信の飾りを、すべて AI が作った画面](media/demo/demo-stream.gif)
 
@@ -111,9 +112,9 @@ ScoreText が 0 より大きいか確かめてからスクリーンショット�
 ui:#StartButton         UI Toolkit の要素を名前で
 ```
 
-## Claude Code の Skill
+## 同梱の Skill
 
-Claude Code を設定すると `<Project>/.claude/skills/` に入ります。更新しても自分で直した内容は残ります（`install_skills` の `force: true` で上書き）。
+いまは Claude Code 用です。Claude Code の接続を設定すると `<Project>/.claude/skills/` に入ります。更新しても自分で直した内容は残ります（`install_skills` の `force: true` で上書き）。
 
 | Skill | すること |
 |---|---|
