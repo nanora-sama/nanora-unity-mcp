@@ -1,0 +1,46 @@
+---
+title: nanora-unity-mcp — an MCP server inside the Unity Editor
+description: Connect Claude Code, Codex, Cursor or any MCP client to Unity. The server runs inside the Editor as C#, so there is no Node.js, Python or separate server to install. 57 tools, Playwright-style testing, MIT.
+template: splash
+hero:
+  title: The MCP server that lives inside Unity
+  tagline: Let Claude Code, Codex, Cursor or any MCP client build, play, test and profile your Unity project. Nothing to install besides the package.
+  image:
+    file: ../../assets/icon.png
+  actions:
+    - text: Install
+      link: /nanora-unity-mcp/getting-started/install/
+      icon: right-arrow
+    - text: Tool reference
+      link: /nanora-unity-mcp/tools/
+      variant: minimal
+    - text: GitHub
+      link: https://github.com/nanora-sama/nanora-unity-mcp
+      icon: github
+      variant: minimal
+---
+
+import { Card, CardGrid } from '@astrojs/starlight/components';
+
+<CardGrid>
+  <Card title="Only Unity" icon="seti:c-sharp">
+    The server is C# running in the Editor process. No Node.js, Python, separate server, account or subscription.
+  </Card>
+  <Card title="Any MCP client" icon="puzzle">
+    Streamable HTTP (`/mcp`) and SSE (`/sse`) on the same server. Tested with Claude Code, Codex, Cursor and Claude Desktop.
+  </Card>
+  <Card title="The AI checks its own work" icon="approve-check">
+    Playwright-style selectors, `wait_for_selector`, `assert_ui_state` and `simulate_input` let the AI play the game and verify the result.
+  </Card>
+  <Card title="Many Editors, no mix-ups" icon="list-format">
+    The port is derived from the project path, the client config is written for you, and `/health` names the project.
+  </Card>
+</CardGrid>
+
+## What an AI built with it
+
+One instruction per level, no human edits afterwards. The AI drove Unity through this server, checked its work with screenshots, input and tests, and fixed what it found.
+
+![The game, a character wipe and stream overlays, all built by the AI](/nanora-unity-mcp/demo-stream.gif)
+
+[Install it](/nanora-unity-mcp/getting-started/install/) · [Try the sample game](/nanora-unity-mcp/getting-started/first-run/) · [Browse all 57 tools](/nanora-unity-mcp/tools/)

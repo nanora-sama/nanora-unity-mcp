@@ -1,0 +1,46 @@
+---
+title: nanora-unity-mcp — Unity Editor の中で動く MCP サーバー
+description: Claude Code・Codex・Cursor など MCP に対応した AI を Unity につなぐ。サーバーは Editor の中で動く C# なので、Node.js も Python も別のサーバーも要りません。57 ツール・Playwright 風のテスト・MIT。
+template: splash
+hero:
+  title: Unity の中に住む MCP サーバー
+  tagline: Claude Code・Codex・Cursor など MCP に対応した AI から、Unity プロジェクトを作る・遊ぶ・テストする・計測する。入れるのはパッケージだけ。
+  image:
+    file: ../../../assets/icon.png
+  actions:
+    - text: 導入する
+      link: /nanora-unity-mcp/ja/getting-started/install/
+      icon: right-arrow
+    - text: ツール一覧
+      link: /nanora-unity-mcp/ja/tools/
+      variant: minimal
+    - text: GitHub
+      link: https://github.com/nanora-sama/nanora-unity-mcp
+      icon: github
+      variant: minimal
+---
+
+import { Card, CardGrid } from '@astrojs/starlight/components';
+
+<CardGrid>
+  <Card title="Unity だけで動く" icon="seti:c-sharp">
+    サーバーは Editor のプロセスで動く C# です。Node.js も Python も、別のサーバーも、アカウントや契約も要りません。
+  </Card>
+  <Card title="AI を選ばない" icon="puzzle">
+    Streamable HTTP（`/mcp`）と SSE（`/sse`）を同じサーバーで。動作を確かめているのは Claude Code・Codex・Cursor・Claude Desktop です。
+  </Card>
+  <Card title="AI が自分の作業を確かめる" icon="approve-check">
+    Playwright 風のセレクタ、`wait_for_selector`・`assert_ui_state`・`simulate_input` で、AI がゲームを遊んで結果を確かめます。
+  </Card>
+  <Card title="Unity を何個開いても混線しない" icon="list-format">
+    ポートはプロジェクトのパスから決まり、接続設定も書きます。`/health` がプロジェクト名を返します。
+  </Card>
+</CardGrid>
+
+## AI がこれで作ったもの
+
+Lv ごとに指示は 1 本だけ。指示のあとは人の手を入れていません。AI がこのサーバーで Unity を操作し、スクリーンショット・入力・テストで自分の作業を確かめ、見つけたところを直しました。
+
+![ゲーム・キャラクターのワイプ・配信の飾りを、すべて AI が作った画面](/nanora-unity-mcp/demo-stream.gif)
+
+[導入する](/nanora-unity-mcp/ja/getting-started/install/) · [サンプルのゲームで試す](/nanora-unity-mcp/ja/getting-started/first-run/) · [57 ツールを見る](/nanora-unity-mcp/ja/tools/)

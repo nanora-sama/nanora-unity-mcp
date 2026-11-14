@@ -1,0 +1,52 @@
+name: Docs site
+# Builds the documentation site in site/ and publishes it to GitHub Pages.
+# Pull requests only build it (the tool pages are generated from the C# tool classes, so a broken
+# tool definition fails here); main in the public repository also deploys.
+on:
+  push:
+    branches: [main]
+    paths: ['site/**', 'Assets/NanoraUnityMCP/Editor/**', 'Assets/NanoraUnityMCP/package.json', 'media/**', '.github/workflows/docs.yml']
+  pull_request:
+    branches: [main]
+    paths: ['site/**', 'Assets/NanoraUnityMCP/Editor/**', 'Assets/NanoraUnityMCP/package.json', 'media/**', '.github/workflows/docs.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: docs-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: site
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0 # "last updated" dates come from the git history
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: site/package-lock.json
+      - run: npm ci
+      - run: npm run build
+      - if: github.repository == 'nanora-sama/nanora-unity-mcp' && github.event_name != 'pull_request'
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: site/dist
+  deploy:
+    needs: build
+    if: github.repository == 'nanora-sama/nanora-unity-mcp' && github.event_name != 'pull_request'
+    runs-on: ubuntu-24.04
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v5

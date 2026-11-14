@@ -1,0 +1,10 @@
+node_modules/
+dist/
+.astro/
+# Generated from the C# tool classes by scripts/gen-tools.mjs
+src/content/docs/tools/
+src/content/docs/ja/tools/
+# Copied from ../media by scripts/gen-tools.mjs
+public/*.png
+public/*.gif
+src/assets/
