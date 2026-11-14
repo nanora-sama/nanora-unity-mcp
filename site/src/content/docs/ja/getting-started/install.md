@@ -30,12 +30,12 @@ https://github.com/nanora-sama/nanora-unity-mcp.git?path=Assets/NanoraUnityMCP
 curl http://127.0.0.1:<PORT>/health
 ```
 
-返ってきた `projectPath` が今のプロジェクトなら、[AI をつなぎましょう](/nanora-unity-mcp/ja/connect/claude-code/)。
+返ってきた `projectPath` が今のプロジェクトなら、[AI をつなぎましょう](/ja/connect/claude-code/)。
 
 ## おすすめ設定
 
-- Setup Wizard の **Optimize for MCP (Recommended)**: Unity が裏にあっても応答するようにします。AI はたいてい別のウィンドウから操作するので、ほぼ必須です。[`configure_editor`](/nanora-unity-mcp/ja/tools/configure-editor/) の action `optimize_for_mcp` でも同じです。
-- 任意: *Project Settings > Editor > Enter Play Mode Settings* で *Reload Domain* を外すと、Play に入るときにサーバーが止まらなくなります。[ドメインリロード](/nanora-unity-mcp/ja/guides/domain-reload/)を参照。
+- Setup Wizard の **Optimize for MCP (Recommended)**: Unity が裏にあっても応答するようにします。AI はたいてい別のウィンドウから操作するので、ほぼ必須です。[`configure_editor`](/ja/tools/configure-editor/) の action `optimize_for_mcp` でも同じです。
+- 任意: *Project Settings > Editor > Enter Play Mode Settings* で *Reload Domain* を外すと、Play に入るときにサーバーが止まらなくなります。[ドメインリロード](/ja/guides/domain-reload/)を参照。
 
 ## 更新・削除
 

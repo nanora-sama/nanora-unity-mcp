@@ -33,4 +33,4 @@ It confirms that the installed Codex client can list and call the tools.
 ## If it does not appear
 
 - The URL must end in `/mcp` and use the current port.
-- The [`/mcp` endpoint](/nanora-unity-mcp/reference/endpoints/) is stateless and answers in JSON; notifications get `202`.
+- The [`/mcp` endpoint](/reference/endpoints/) is stateless and answers in JSON; notifications get `202`.

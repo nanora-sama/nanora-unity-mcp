@@ -17,4 +17,4 @@ curl http://127.0.0.1:<PORT>/health
 
 プロジェクト名とパス・プロセス ID・パッケージの版・プロトコルの版・トランスポートが返ります。`projectPath` が意図したプロジェクトでなければ、クライアントの URL を直してください。
 
-AI 自身は、リソース [`unity://project/info`](/nanora-unity-mcp/ja/reference/endpoints/#リソース) で同じことを確かめられます。
+AI 自身は、リソース [`unity://project/info`](/ja/reference/endpoints/#リソース) で同じことを確かめられます。

@@ -7,9 +7,9 @@ sidebar:
 
 ツールの名前とスキーマは、どれも AI の文脈に入ります。57 ツールあると、それだけでかなりの量です。**SuperSave モード**では、クライアントに見せるのはメタツール 3 本だけになります。
 
-1. [`list_categories`](/nanora-unity-mcp/ja/tools/list-categories/) — 分類の一覧
-2. [`list_tools`](/nanora-unity-mcp/ja/tools/list-tools/) — 1 分類のツールを 1 行ずつ
-3. [`execute`](/nanora-unity-mcp/ja/tools/execute/) — 名前でツールを呼ぶ: `{"tool": "capture_screenshot", "args": { … }}`
+1. [`list_categories`](/ja/tools/list-categories/) — 分類の一覧
+2. [`list_tools`](/ja/tools/list-tools/) — 1 分類のツールを 1 行ずつ
+3. [`execute`](/ja/tools/execute/) — 名前でツールを呼ぶ: `{"tool": "capture_screenshot", "args": { … }}`
 
 ## 有効にする
 
@@ -27,4 +27,4 @@ NANORA_MCP_SUPERSAVE=1 /path/to/Unity -projectPath .
 
 Console に `[UnityMCP] SuperSave mode enabled - only meta-tools will be exposed` と出ます。
 
-`list_tools` が返すのは短い説明だけで、パラメータのスキーマは含みません。各ツールのパラメータは[ツールリファレンス](/nanora-unity-mcp/ja/tools/)のページにあります。
+`list_tools` が返すのは短い説明だけで、パラメータのスキーマは含みません。各ツールのパラメータは[ツールリファレンス](/ja/tools/)のページにあります。

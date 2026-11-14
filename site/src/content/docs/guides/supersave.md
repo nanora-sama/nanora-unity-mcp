@@ -7,9 +7,9 @@ sidebar:
 
 Every tool's name and schema goes into the AI's context. With 57 tools that is a lot of text. **SuperSave mode** shows the client only three meta tools instead:
 
-1. [`list_categories`](/nanora-unity-mcp/tools/list-categories/) — the categories
-2. [`list_tools`](/nanora-unity-mcp/tools/list-tools/) — the tools in one category, one line each
-3. [`execute`](/nanora-unity-mcp/tools/execute/) — call a tool by name: `{"tool": "capture_screenshot", "args": { … }}`
+1. [`list_categories`](/tools/list-categories/) — the categories
+2. [`list_tools`](/tools/list-tools/) — the tools in one category, one line each
+3. [`execute`](/tools/execute/) — call a tool by name: `{"tool": "capture_screenshot", "args": { … }}`
 
 ## Turn it on
 
@@ -27,4 +27,4 @@ NANORA_MCP_SUPERSAVE=1 /path/to/Unity -projectPath .
 
 The Console shows `[UnityMCP] SuperSave mode enabled - only meta-tools will be exposed`.
 
-`list_tools` returns short descriptions without parameter schemas. The parameters of every tool are on its page in the [tool reference](/nanora-unity-mcp/tools/).
+`list_tools` returns short descriptions without parameter schemas. The parameters of every tool are on its page in the [tool reference](/tools/).

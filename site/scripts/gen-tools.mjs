@@ -110,7 +110,7 @@ const L = {
   },
 };
 
-const BASE = '/nanora-unity-mcp/';
+const BASE = '/';
 const esc = (s) => String(s ?? '').replace(/\|/g, '\\|').replace(/\r?\n/g, ' ');
 const yamlStr = (s) => JSON.stringify(s);
 

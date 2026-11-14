@@ -30,12 +30,12 @@ The server starts with the Editor. On the first start the **Setup Wizard** opens
 curl http://127.0.0.1:<PORT>/health
 ```
 
-If `projectPath` in the answer is your project, you are ready to [connect your AI](/nanora-unity-mcp/connect/claude-code/).
+If `projectPath` in the answer is your project, you are ready to [connect your AI](/connect/claude-code/).
 
 ## Recommended settings
 
-- **Optimize for MCP (Recommended)** in the Setup Wizard keeps Unity answering while it is in the background. AI clients usually work from another window, so turn this on. The `optimize_for_mcp` action of [`configure_editor`](/nanora-unity-mcp/tools/configure-editor/) does the same.
-- Optional: untick *Reload Domain* in *Project Settings > Editor > Enter Play Mode Settings* so entering Play Mode does not pause the server. See [Domain reload](/nanora-unity-mcp/guides/domain-reload/).
+- **Optimize for MCP (Recommended)** in the Setup Wizard keeps Unity answering while it is in the background. AI clients usually work from another window, so turn this on. The `optimize_for_mcp` action of [`configure_editor`](/tools/configure-editor/) does the same.
+- Optional: untick *Reload Domain* in *Project Settings > Editor > Enter Play Mode Settings* so entering Play Mode does not pause the server. See [Domain reload](/guides/domain-reload/).
 
 ## Update or remove
 

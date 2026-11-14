@@ -18,7 +18,7 @@ AI を Unity につなぐ良いツールはいくつもあります。実際に�
 - **Unity だけで完結。** Python・Node.js・別の実行ファイル・中継プログラムが要りません。
 - **Streamable HTTP と SSE を同じサーバーで。** Codex と Claude Code・Cursor が同じ Editor を使えます。
 - **プロジェクトごとに決まるポート・接続設定の自動生成・プロジェクト名を返す `/health`。** 設定なしで、Unity を複数開いても混線しません。
-- **作るだけでなく確かめる。** U-Selector と `wait_for_selector`・`assert_ui_state`・`simulate_input`、AI に作業を確かめさせる [Skill](/nanora-unity-mcp/ja/guides/skills/)。
+- **作るだけでなく確かめる。** U-Selector と `wait_for_selector`・`assert_ui_state`・`simulate_input`、AI に作業を確かめさせる [Skill](/ja/guides/skills/)。
 
 ## ほかのツールが上のところ
 

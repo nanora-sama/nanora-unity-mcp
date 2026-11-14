@@ -10,7 +10,7 @@ When Unity compiles or enters Play Mode it reloads all scripts (a *domain reload
 A request cut off by a reload gets a JSON-RPC error that says so. **The tool may already have finished.** So:
 
 1. Wait until `/health` answers again (it also answers during compilation).
-2. Read the state — [`mcp_status`](/nanora-unity-mcp/tools/mcp-status/), the [`unity://editor/state`](/nanora-unity-mcp/reference/endpoints/#resources) resource, or the `status` action of [`manage_playmode`](/nanora-unity-mcp/tools/manage-playmode/).
+2. Read the state — [`mcp_status`](/tools/mcp-status/), the [`unity://editor/state`](/reference/endpoints/#resources) resource, or the `status` action of [`manage_playmode`](/tools/manage-playmode/).
 3. Only then decide whether to repeat the change. **Do not repeat a change blindly**; it may already have happened.
 
 ## Avoid the reload on Play

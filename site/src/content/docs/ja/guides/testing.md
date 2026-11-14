@@ -5,23 +5,23 @@ sidebar:
   order: 1
 ---
 
-シーンを変えた AI には、結果も確かめてほしい。nanora-unity-mcp には、そのための Playwright 風のツールがあります。どれも `#ScoreText` や `.Enemy[tag=Boss]` のような [U-Selector](/nanora-unity-mcp/ja/reference/u-selector/) で対象を指します。
+シーンを変えた AI には、結果も確かめてほしい。nanora-unity-mcp には、そのための Playwright 風のツールがあります。どれも `#ScoreText` や `.Enemy[tag=Boss]` のような [U-Selector](/ja/reference/u-selector/) で対象を指します。
 
 ## 1 手ずつ
 
 | 手順 | ツール |
 |---|---|
-| Play モードに入る・出る | [`manage_playmode`](/nanora-unity-mcp/ja/tools/manage-playmode/) |
-| オブジェクトが現れる・見える・押せるまで待つ | [`wait_for_selector`](/nanora-unity-mcp/ja/tools/wait-for-selector/) |
-| キーを押す・クリック・ドラッグ・UI の要素を押す | [`simulate_input`](/nanora-unity-mcp/ja/tools/simulate-input/) |
-| 文字・表示・色・値などを判定する | [`assert_ui_state`](/nanora-unity-mcp/ja/tools/assert-ui-state/) |
-| 結果を見る | [`capture_screenshot`](/nanora-unity-mcp/ja/tools/capture-screenshot/) |
+| Play モードに入る・出る | [`manage_playmode`](/ja/tools/manage-playmode/) |
+| オブジェクトが現れる・見える・押せるまで待つ | [`wait_for_selector`](/ja/tools/wait-for-selector/) |
+| キーを押す・クリック・ドラッグ・UI の要素を押す | [`simulate_input`](/ja/tools/simulate-input/) |
+| 文字・表示・色・値などを判定する | [`assert_ui_state`](/ja/tools/assert-ui-state/) |
+| 結果を見る | [`capture_screenshot`](/ja/tools/capture-screenshot/) |
 
 キー入力のシミュレートには **Input System** パッケージが要ります（旧 Input Manager だけだとキーは届きません）。Input System 1.4 以降なら、Unity が裏にあってもキーが届きます。
 
 ## シナリオを 1 回で
 
-[`run_e2e_test`](/nanora-unity-mcp/ja/tools/run-e2e-test/) は手順の並びを Play モードで実行し、手順ごとの合否を返します。手順の種類は `wait_for_selector`・`simulate_input`・`assert`・`screenshot`・`wait`・`execute_csharp`。Play モードへの出入りは自動で、失敗した手順ではスクリーンショットを撮ります。
+[`run_e2e_test`](/ja/tools/run-e2e-test/) は手順の並びを Play モードで実行し、手順ごとの合否を返します。手順の種類は `wait_for_selector`・`simulate_input`・`assert`・`screenshot`・`wait`・`execute_csharp`。Play モードへの出入りは自動で、失敗した手順ではスクリーンショットを撮ります。
 
 ```json
 {
@@ -44,10 +44,10 @@ sidebar:
 
 ## 1 回の確認のその先
 
-- [`visual_regression_test`](/nanora-unity-mcp/ja/tools/visual-regression-test/) — スクリーンショットを保存した基準と比べる
-- [`performance_budget_test`](/nanora-unity-mcp/ja/tools/performance-budget-test/) — FPS・描画数・メモリを予算と比べる
-- [`run_tests`](/nanora-unity-mcp/ja/tools/run-tests/) と [`get_test_results`](/nanora-unity-mcp/ja/tools/get-test-results/) — Unity Test Framework のテストを実行する
-- [`generate_test_report`](/nanora-unity-mcp/ja/tools/generate-test-report/) — 結果をレポートにまとめる
+- [`visual_regression_test`](/ja/tools/visual-regression-test/) — スクリーンショットを保存した基準と比べる
+- [`performance_budget_test`](/ja/tools/performance-budget-test/) — FPS・描画数・メモリを予算と比べる
+- [`run_tests`](/ja/tools/run-tests/) と [`get_test_results`](/ja/tools/get-test-results/) — Unity Test Framework のテストを実行する
+- [`generate_test_report`](/ja/tools/generate-test-report/) — 結果をレポートにまとめる
 
 ## スクリーンショットに UI が写らない
 

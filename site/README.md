@@ -1,11 +1,11 @@
 # Documentation site
 
-Source of https://nanora-sama.github.io/nanora-unity-mcp/ (Astro Starlight, English at `/`, Japanese at `/ja/`).
+Source of https://unity-mcp.nanoradev.com/ (Astro Starlight, English at `/`, Japanese at `/ja/`).
 
 ```sh
 cd site
 npm ci
-npm run dev      # http://localhost:4321/nanora-unity-mcp/
+npm run dev      # http://localhost:4321/
 npm run build    # writes dist/
 ```
 

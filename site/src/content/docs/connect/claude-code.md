@@ -23,10 +23,10 @@ nanora-unity-mcp writes the Claude Code configuration for you.
 
 ## Skills
 
-When the Claude Code connection is configured, the bundled skills are copied to `<Project>/.claude/skills/` — for example `/unity-verify-applied`, which makes the AI check saved files, the running state and the visible result before it says "done". See [Bundled skills](/nanora-unity-mcp/guides/skills/).
+When the Claude Code connection is configured, the bundled skills are copied to `<Project>/.claude/skills/` — for example `/unity-verify-applied`, which makes the AI check saved files, the running state and the visible result before it says "done". See [Bundled skills](/guides/skills/).
 
 ## If it does not appear
 
 - Start Unity first, then restart `claude` in the folder that contains `.mcp.json`.
 - `curl http://127.0.0.1:<PORT>/health` should answer with your `projectPath`.
-- More in [Troubleshooting](/nanora-unity-mcp/troubleshooting/).
+- More in [Troubleshooting](/troubleshooting/).

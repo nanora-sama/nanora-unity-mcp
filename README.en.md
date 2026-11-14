@@ -8,7 +8,7 @@
 [![Unity 6](https://img.shields.io/badge/Unity%206-Supported-black?logo=unity)](https://unity.com/releases/unity-6)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-[日本語](README.md) | **English** · **[Documentation](https://nanora-sama.github.io/nanora-unity-mcp/)** (install, connecting each agent, every tool)
+[日本語](README.md) | **English** · **[Documentation](https://unity-mcp.nanoradev.com/)** (install, connecting each agent, every tool)
 
 ## Why this one
 

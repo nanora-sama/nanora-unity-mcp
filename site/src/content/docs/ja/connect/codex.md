@@ -33,4 +33,4 @@ node scripts/mcp/verify-codex.mjs
 ## 出てこないとき
 
 - URL が `/mcp` で終わっているか、番号が今の番号か
-- [`/mcp` エンドポイント](/nanora-unity-mcp/ja/reference/endpoints/)は状態を持たず、JSON で応答します。通知には `202` を返します
+- [`/mcp` エンドポイント](/ja/reference/endpoints/)は状態を持たず、JSON で応答します。通知には `202` を返します
