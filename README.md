@@ -8,7 +8,7 @@
 [![Unity 6](https://img.shields.io/badge/Unity%206-Supported-black?logo=unity)](https://unity.com/releases/unity-6)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-**日本語** | [English](README.en.md) · **[ドキュメント](https://unity-mcp.nanoradev.com/ja/)**（導入・AI ごとの接続・全ツールのリファレンス）
+**日本語** | [English](README.en.md) · **[ドキュメント](https://unity-mcp.nanoradev.com/ja/)**（導入・AI ごとの接続・全ツールのリファレンス） · [紹介動画](https://youtu.be/DcSxXqQ_MqU) · [BOOTH（無料）](https://nanoradev.booth.pm/items/9149923)
 
 ## 特長
 
@@ -26,7 +26,7 @@
 https://github.com/nanora-sama/nanora-unity-mcp.git?path=Assets/NanoraUnityMCP
 ```
 
-**Tarball** — [Releases](https://github.com/nanora-sama/nanora-unity-mcp/releases) か BOOTH から `com.nanora.nanora-unity-mcp-<version>.tgz` をダウンロードし、*Package Manager > **+** > Add package from tarball…* で選びます。必要なパッケージも自動で入ります。
+**Tarball** — [Releases](https://github.com/nanora-sama/nanora-unity-mcp/releases) か [BOOTH](https://nanoradev.booth.pm/items/9149923) から `com.nanora.nanora-unity-mcp-<version>.tgz` をダウンロードし、*Package Manager > **+** > Add package from tarball…* で選びます。必要なパッケージも自動で入ります。
 
 **.unitypackage** — 先に `com.unity.nuget.newtonsoft-json` を入れてから（*Add package by name…*）、*Assets > Import Package > Custom Package…*。.unitypackage は依存パッケージを入れられず、サンプルも含みません。
 
@@ -47,6 +47,8 @@ Unity 2021.3 LTS 以降。サーバーは Editor と一緒に起動し、初回�
 見つかったエージェントは Setup Wizard が設定できます。Unity が前面にないときも応答するよう、ウィザードで **Background Execution** を有効にしてください（`configure_editor` の `optimize_for_mcp` でも可）。
 
 ## 作っているところを見る
+
+紹介動画（Lv.1〜6 の通し）: https://youtu.be/DcSxXqQ_MqU
 
 Lv ごとに指示は 1 本だけ。指示のあとは人の手を入れていません。AI（この録画では Claude Code）がこのサーバーで Unity を操作し、スクリーンショット・入力・テストで自分の作業を確かめ、見つけたところを直しました。Lv.6 で全部を合わせて、ゲーム配信の画面にしています。
 
