@@ -8,7 +8,7 @@
 [![Unity 6](https://img.shields.io/badge/Unity%206-Supported-black?logo=unity)](https://unity.com/releases/unity-6)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-[日本語](README.md) | **English** · **[Documentation](https://unity-mcp.nanoradev.com/)** (install, connecting each agent, every tool)
+[日本語](README.md) | **English** · **[Documentation](https://unity-mcp.nanoradev.com/)** (install, connecting each agent, every tool) · [Video](https://youtu.be/DcSxXqQ_MqU) · [BOOTH (free)](https://nanoradev.booth.pm/items/9149923)
 
 ## Why this one
 
@@ -26,7 +26,7 @@
 https://github.com/nanora-sama/nanora-unity-mcp.git?path=Assets/NanoraUnityMCP
 ```
 
-**Tarball** — download `com.nanora.nanora-unity-mcp-<version>.tgz` from [Releases](https://github.com/nanora-sama/nanora-unity-mcp/releases) or BOOTH, then *Package Manager > **+** > Add package from tarball…* Dependencies are installed for you.
+**Tarball** — download `com.nanora.nanora-unity-mcp-<version>.tgz` from [Releases](https://github.com/nanora-sama/nanora-unity-mcp/releases) or [BOOTH](https://nanoradev.booth.pm/items/9149923), then *Package Manager > **+** > Add package from tarball…* Dependencies are installed for you.
 
 **.unitypackage** — install `com.unity.nuget.newtonsoft-json` first (*Add package by name…*), then *Assets > Import Package > Custom Package…* A .unitypackage cannot install dependencies or carry the sample.
 
@@ -47,6 +47,8 @@ The port is chosen from the project path (51726–51825) and shown in **Window >
 The Setup Wizard can configure detected agents for you. Enable **Background Execution** in the wizard (or call `configure_editor` with `optimize_for_mcp`) so Unity answers while it is not focused.
 
 ## See it build something
+
+Video (Lv.1–6, in Japanese): https://youtu.be/DcSxXqQ_MqU
 
 Six prompts, one per level, and nothing touched by hand after each prompt. The AI (Claude Code in this recording) drove Unity through this server, checked its own work with screenshots, input and tests, and fixed what it found. Level 6 puts the pieces together into a game-stream screen:
 
