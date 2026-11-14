@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.2.2] - 2026-11-14
+
 ### Changed
 
 - Skill recipes and references use `FindObjectsByType(FindObjectsSortMode.None)` instead of the Unity 6-deprecated `FindObjectsOfType`, and `unity-mcp-skill` has a "Writing Unity code" section (find APIs, per-frame work, static state with domain reload disabled, Awaitable) linked to the Unity 6.3 docs. `unity-pre-pr-check` treats new obsolete-API warnings in changed files as findings.
