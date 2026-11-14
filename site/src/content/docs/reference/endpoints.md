@@ -25,7 +25,7 @@ Read-only MCP resources the AI can read at any time:
 | `unity://project/info` | Which project this server belongs to |
 | `unity://editor/state` | Compile failures, Play / paused state, scenes being loaded and unsaved scenes |
 
-Read `unity://editor/state` after a [domain reload](/nanora-unity-mcp/guides/domain-reload/) before repeating a change.
+Read `unity://editor/state` after a [domain reload](/guides/domain-reload/) before repeating a change.
 
 ## Calling a tool from a script
 

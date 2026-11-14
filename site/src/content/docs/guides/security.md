@@ -11,6 +11,6 @@ sidebar:
 
 ## Code execution
 
-[`execute_csharp`](/nanora-unity-mcp/tools/execute-csharp/) and [`execute_menu_item`](/nanora-unity-mcp/tools/execute-menu-item/) run code in the Editor with your rights. `execute_csharp` blocks some APIs (starting processes, web clients) and stops endless loops, but **it is not a sandbox**. Review what your AI client is allowed to call.
+[`execute_csharp`](/tools/execute-csharp/) and [`execute_menu_item`](/tools/execute-menu-item/) run code in the Editor with your rights. `execute_csharp` blocks some APIs (starting processes, web clients) and stops endless loops, but **it is not a sandbox**. Review what your AI client is allowed to call.
 
 Report vulnerabilities privately as described in [SECURITY.md](https://github.com/nanora-sama/nanora-unity-mcp/blob/main/SECURITY.md).

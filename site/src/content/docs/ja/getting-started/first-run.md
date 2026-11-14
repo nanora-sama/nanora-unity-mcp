@@ -16,6 +16,6 @@ sidebar:
 ScoreText が 0 より大きくなったか確かめて、スクリーンショットを見せて。
 ```
 
-AI は [`manage_playmode`](/nanora-unity-mcp/ja/tools/manage-playmode/)・[`simulate_input`](/nanora-unity-mcp/ja/tools/simulate-input/)・[`assert_ui_state`](/nanora-unity-mcp/ja/tools/assert-ui-state/)・[`capture_screenshot`](/nanora-unity-mcp/ja/tools/capture-screenshot/) を順に使います。
+AI は [`manage_playmode`](/ja/tools/manage-playmode/)・[`simulate_input`](/ja/tools/simulate-input/)・[`assert_ui_state`](/ja/tools/assert-ui-state/)・[`capture_screenshot`](/ja/tools/capture-screenshot/) を順に使います。
 
-「同じことを `run_e2e_test` の 1 回でやって」と頼むと、手順ごとの合否が一覧で返ります。詳しくは [AI にゲームをテストさせる](/nanora-unity-mcp/ja/guides/testing/)。
+「同じことを `run_e2e_test` の 1 回でやって」と頼むと、手順ごとの合否が一覧で返ります。詳しくは [AI にゲームをテストさせる](/ja/guides/testing/)。

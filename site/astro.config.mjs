@@ -1,10 +1,10 @@
-// Documentation site for nanora-unity-mcp, published to GitHub Pages from the public repository.
+// Documentation site for nanora-unity-mcp, published to GitHub Pages from the public repository
+// at the custom domain unity-mcp.nanoradev.com (a DNS-only CNAME to nanora-sama.github.io in Cloudflare).
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 import starlightLlmsTxt from 'starlight-llms-txt';
 
-const site = 'https://nanora-sama.github.io';
-const base = '/nanora-unity-mcp';
+const site = 'https://unity-mcp.nanoradev.com';
 const repo = 'https://github.com/nanora-sama/nanora-unity-mcp';
 
 // Lets search engines read what the package is, who makes it and what it costs.
@@ -15,7 +15,7 @@ const jsonLd = {
   applicationCategory: 'DeveloperApplication',
   operatingSystem: 'Windows, macOS, Linux (Unity Editor 2021.3 or later)',
   description: 'An MCP server that runs inside the Unity Editor. Connect Claude Code, Codex, Cursor or any MCP client to build, play, test and profile a Unity project. No Node.js or Python.',
-  url: `${site}${base}/`,
+  url: `${site}/`,
   downloadUrl: `${repo}/releases`,
   codeRepository: repo,
   license: 'https://opensource.org/licenses/MIT',
@@ -25,7 +25,6 @@ const jsonLd = {
 
 export default defineConfig({
   site,
-  base,
   trailingSlash: 'always',
   integrations: [
     starlight({
@@ -43,7 +42,7 @@ export default defineConfig({
       lastUpdated: true,
       routeMiddleware: './src/route-data.ts',
       head: [
-        { tag: 'meta', attrs: { property: 'og:image', content: `${site}${base}/og.png` } },
+        { tag: 'meta', attrs: { property: 'og:image', content: `${site}/og.png` } },
         { tag: 'meta', attrs: { name: 'twitter:card', content: 'summary_large_image' } },
         { tag: 'script', attrs: { type: 'application/ld+json' }, content: JSON.stringify(jsonLd) },
       ],

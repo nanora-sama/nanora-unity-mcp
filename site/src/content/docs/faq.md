@@ -13,23 +13,23 @@ Unity 2021.3 LTS or later, including Unity 6.
 
 ## Which AI clients work?
 
-Any MCP client that speaks Streamable HTTP or SSE. It is tested with Claude Code, Codex, Cursor and Claude Desktop. See [Connect any MCP client](/nanora-unity-mcp/connect/other-clients/).
+Any MCP client that speaks Streamable HTTP or SSE. It is tested with Claude Code, Codex, Cursor and Claude Desktop. See [Connect any MCP client](/connect/other-clients/).
 
 ## Do I need Node.js or Python?
 
-No. The server is C# that runs inside the Unity Editor. Node.js is used only by the optional [transport checks](/nanora-unity-mcp/connect/other-clients/#check-the-transport).
+No. The server is C# that runs inside the Unity Editor. Node.js is used only by the optional [transport checks](/connect/other-clients/#check-the-transport).
 
 ## Does it send my project anywhere?
 
-The server only listens on 127.0.0.1. What your AI client sends to its own provider is up to that client. See [Security](/nanora-unity-mcp/guides/security/).
+The server only listens on 127.0.0.1. What your AI client sends to its own provider is up to that client. See [Security](/guides/security/).
 
 ## How many tools are there?
 
-57 tools in 18 categories, plus three meta tools for [SuperSave mode](/nanora-unity-mcp/guides/supersave/). They are all in the [tool reference](/nanora-unity-mcp/tools/).
+57 tools in 18 categories, plus three meta tools for [SuperSave mode](/guides/supersave/). They are all in the [tool reference](/tools/).
 
 ## Can the AI test what it built?
 
-Yes — that is the point of the testing tools. See [Let the AI test your game](/nanora-unity-mcp/guides/testing/).
+Yes — that is the point of the testing tools. See [Let the AI test your game](/guides/testing/).
 
 ## Does it work in a built player?
 
@@ -37,7 +37,7 @@ No. It is an Editor tool; the server runs in the Unity Editor.
 
 ## How is it different from other Unity MCP servers?
 
-The main difference is what you need besides Unity. See the [comparison](/nanora-unity-mcp/comparison/).
+The main difference is what you need besides Unity. See the [comparison](/comparison/).
 
 ## Where do I ask questions?
 

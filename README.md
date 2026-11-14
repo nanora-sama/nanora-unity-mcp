@@ -8,7 +8,7 @@
 [![Unity 6](https://img.shields.io/badge/Unity%206-Supported-black?logo=unity)](https://unity.com/releases/unity-6)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-**日本語** | [English](README.en.md) · **[ドキュメント](https://nanora-sama.github.io/nanora-unity-mcp/ja/)**（導入・AI ごとの接続・全ツールのリファレンス）
+**日本語** | [English](README.en.md) · **[ドキュメント](https://unity-mcp.nanoradev.com/ja/)**（導入・AI ごとの接続・全ツールのリファレンス）
 
 ## 特長
 

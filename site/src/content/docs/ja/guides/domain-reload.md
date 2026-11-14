@@ -10,7 +10,7 @@ Unity はコンパイルのあとや Play モードに入るとき、スクリ�
 リロードで打ち切られた要求には、その旨の JSON-RPC エラーを返します。**ツールの処理はもう終わっているかもしれません。** なので:
 
 1. `/health` が応答するまで待つ（コンパイル中も応答します）
-2. 状態を読む — [`mcp_status`](/nanora-unity-mcp/ja/tools/mcp-status/)、リソース [`unity://editor/state`](/nanora-unity-mcp/ja/reference/endpoints/#リソース)、[`manage_playmode`](/nanora-unity-mcp/ja/tools/manage-playmode/) の `status`
+2. 状態を読む — [`mcp_status`](/ja/tools/mcp-status/)、リソース [`unity://editor/state`](/ja/reference/endpoints/#リソース)、[`manage_playmode`](/ja/tools/manage-playmode/) の `status`
 3. そのあとで、変更をやり直すか決める。**同じ変更をそのまま繰り返さない**（もう反映されていることがあります）
 
 ## Play のときのリロードをなくす

@@ -5,7 +5,7 @@ sidebar:
   order: 2
 ---
 
-The package ships six Claude Code skills. When the Claude Code connection is configured they are copied to `<Project>/.claude/skills/`. Updates keep your own edits; [`install_skills`](/nanora-unity-mcp/tools/install-skills/) with `force: true` overwrites them.
+The package ships six Claude Code skills. When the Claude Code connection is configured they are copied to `<Project>/.claude/skills/`. Updates keep your own edits; [`install_skills`](/tools/install-skills/) with `force: true` overwrites them.
 
 | Skill | What it does |
 |---|---|

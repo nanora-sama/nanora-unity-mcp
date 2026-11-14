@@ -17,4 +17,4 @@ curl http://127.0.0.1:<PORT>/health
 
 The answer includes the project name and path, process ID, package version, protocol version and transports. If `projectPath` is not the project you meant, update the client's URL.
 
-The [`unity://project/info`](/nanora-unity-mcp/reference/endpoints/#resources) resource gives the AI itself the same answer.
+The [`unity://project/info`](/reference/endpoints/#resources) resource gives the AI itself the same answer.

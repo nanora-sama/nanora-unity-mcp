@@ -25,7 +25,7 @@ AI がいつでも読める、読み取り専用の MCP リソース:
 | `unity://project/info` | このサーバーがどのプロジェクトのものか |
 | `unity://editor/state` | コンパイルの失敗・Play／一時停止・読み込み中と未保存のシーン |
 
-[ドメインリロード](/nanora-unity-mcp/ja/guides/domain-reload/)のあと、変更をやり直す前に `unity://editor/state` を読んでください。
+[ドメインリロード](/ja/guides/domain-reload/)のあと、変更をやり直す前に `unity://editor/state` を読んでください。
 
 ## スクリプトからツールを呼ぶ
 

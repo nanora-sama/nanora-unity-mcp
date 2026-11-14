@@ -5,7 +5,7 @@ sidebar:
   order: 1
 ---
 
-U-Selector は、CSS のセレクタが HTML の要素を探すように GameObject を探します。[`query_objects`](/nanora-unity-mcp/ja/tools/query-objects/)・[`wait_for_selector`](/nanora-unity-mcp/ja/tools/wait-for-selector/)・[`assert_ui_state`](/nanora-unity-mcp/ja/tools/assert-ui-state/)・[`simulate_input`](/nanora-unity-mcp/ja/tools/simulate-input/)（`ui_click`）・[`batch_modify`](/nanora-unity-mcp/ja/tools/batch-modify/)・[`run_e2e_test`](/nanora-unity-mcp/ja/tools/run-e2e-test/) の手順で使えます。
+U-Selector は、CSS のセレクタが HTML の要素を探すように GameObject を探します。[`query_objects`](/ja/tools/query-objects/)・[`wait_for_selector`](/ja/tools/wait-for-selector/)・[`assert_ui_state`](/ja/tools/assert-ui-state/)・[`simulate_input`](/ja/tools/simulate-input/)（`ui_click`）・[`batch_modify`](/ja/tools/batch-modify/)・[`run_e2e_test`](/ja/tools/run-e2e-test/) の手順で使えます。
 
 ```text
 #Player                 名前で

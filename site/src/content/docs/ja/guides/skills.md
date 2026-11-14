@@ -5,7 +5,7 @@ sidebar:
   order: 2
 ---
 
-パッケージには Claude Code の Skill が 6 つ入っています。Claude Code の接続を設定すると `<Project>/.claude/skills/` に入ります。更新しても自分で直した内容は残ります（[`install_skills`](/nanora-unity-mcp/ja/tools/install-skills/) の `force: true` で上書き）。
+パッケージには Claude Code の Skill が 6 つ入っています。Claude Code の接続を設定すると `<Project>/.claude/skills/` に入ります。更新しても自分で直した内容は残ります（[`install_skills`](/ja/tools/install-skills/) の `force: true` で上書き）。
 
 | Skill | すること |
 |---|---|

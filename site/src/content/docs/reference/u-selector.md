@@ -5,7 +5,7 @@ sidebar:
   order: 1
 ---
 
-U-Selector finds GameObjects the way CSS selectors find HTML elements. [`query_objects`](/nanora-unity-mcp/tools/query-objects/), [`wait_for_selector`](/nanora-unity-mcp/tools/wait-for-selector/), [`assert_ui_state`](/nanora-unity-mcp/tools/assert-ui-state/), [`simulate_input`](/nanora-unity-mcp/tools/simulate-input/) (`ui_click`), [`batch_modify`](/nanora-unity-mcp/tools/batch-modify/) and the steps of [`run_e2e_test`](/nanora-unity-mcp/tools/run-e2e-test/) all take one.
+U-Selector finds GameObjects the way CSS selectors find HTML elements. [`query_objects`](/tools/query-objects/), [`wait_for_selector`](/tools/wait-for-selector/), [`assert_ui_state`](/tools/assert-ui-state/), [`simulate_input`](/tools/simulate-input/) (`ui_click`), [`batch_modify`](/tools/batch-modify/) and the steps of [`run_e2e_test`](/tools/run-e2e-test/) all take one.
 
 ```text
 #Player                 by name

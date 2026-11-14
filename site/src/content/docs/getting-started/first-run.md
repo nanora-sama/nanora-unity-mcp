@@ -16,6 +16,6 @@ Play the shooting game, press Space five times, check that ScoreText is greater 
 and show me a screenshot.
 ```
 
-The AI calls [`manage_playmode`](/nanora-unity-mcp/tools/manage-playmode/), [`simulate_input`](/nanora-unity-mcp/tools/simulate-input/), [`assert_ui_state`](/nanora-unity-mcp/tools/assert-ui-state/) and [`capture_screenshot`](/nanora-unity-mcp/tools/capture-screenshot/) in turn.
+The AI calls [`manage_playmode`](/tools/manage-playmode/), [`simulate_input`](/tools/simulate-input/), [`assert_ui_state`](/tools/assert-ui-state/) and [`capture_screenshot`](/tools/capture-screenshot/) in turn.
 
-Ask it to "do the same with one `run_e2e_test`" and it returns a pass/fail table per step. More on that in [Testing with an AI](/nanora-unity-mcp/guides/testing/).
+Ask it to "do the same with one `run_e2e_test`" and it returns a pass/fail table per step. More on that in [Testing with an AI](/guides/testing/).

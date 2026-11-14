@@ -11,6 +11,6 @@ sidebar:
 
 ## コードの実行
 
-[`execute_csharp`](/nanora-unity-mcp/ja/tools/execute-csharp/) と [`execute_menu_item`](/nanora-unity-mcp/ja/tools/execute-menu-item/) は、あなたの権限で Editor の中のコードを実行します。`execute_csharp` は一部の API（プロセスの起動・Web クライアント）を止め、終わらないループを打ち切りますが、**サンドボックスではありません**。AI クライアントに何を呼ばせるかを確かめてください。
+[`execute_csharp`](/ja/tools/execute-csharp/) と [`execute_menu_item`](/ja/tools/execute-menu-item/) は、あなたの権限で Editor の中のコードを実行します。`execute_csharp` は一部の API（プロセスの起動・Web クライアント）を止め、終わらないループを打ち切りますが、**サンドボックスではありません**。AI クライアントに何を呼ばせるかを確かめてください。
 
 脆弱性は [SECURITY.md](https://github.com/nanora-sama/nanora-unity-mcp/blob/main/SECURITY.md) の方法で、非公開で知らせてください。

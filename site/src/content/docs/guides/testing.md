@@ -5,23 +5,23 @@ sidebar:
   order: 1
 ---
 
-An AI that edits a scene should also check the result. nanora-unity-mcp gives it Playwright-style tools for that, all driven by [U-Selector](/nanora-unity-mcp/reference/u-selector/) queries such as `#ScoreText` or `.Enemy[tag=Boss]`.
+An AI that edits a scene should also check the result. nanora-unity-mcp gives it Playwright-style tools for that, all driven by [U-Selector](/reference/u-selector/) queries such as `#ScoreText` or `.Enemy[tag=Boss]`.
 
 ## Step by step
 
 | Step | Tool |
 |---|---|
-| Enter or leave Play Mode | [`manage_playmode`](/nanora-unity-mcp/tools/manage-playmode/) |
-| Wait until an object exists, is visible or interactable | [`wait_for_selector`](/nanora-unity-mcp/tools/wait-for-selector/) |
-| Press keys, click, drag, click a UI element | [`simulate_input`](/nanora-unity-mcp/tools/simulate-input/) |
-| Check text, active state, color, value… | [`assert_ui_state`](/nanora-unity-mcp/tools/assert-ui-state/) |
-| See the result | [`capture_screenshot`](/nanora-unity-mcp/tools/capture-screenshot/) |
+| Enter or leave Play Mode | [`manage_playmode`](/tools/manage-playmode/) |
+| Wait until an object exists, is visible or interactable | [`wait_for_selector`](/tools/wait-for-selector/) |
+| Press keys, click, drag, click a UI element | [`simulate_input`](/tools/simulate-input/) |
+| Check text, active state, color, value… | [`assert_ui_state`](/tools/assert-ui-state/) |
+| See the result | [`capture_screenshot`](/tools/capture-screenshot/) |
 
 Simulated keys need the **Input System** package; the legacy Input Manager does not receive them. With Input System 1.4 or later keys arrive even while Unity is in the background.
 
 ## One scenario, one call
 
-[`run_e2e_test`](/nanora-unity-mcp/tools/run-e2e-test/) runs a list of steps in Play Mode and returns pass/fail per step. Step actions are `wait_for_selector`, `simulate_input`, `assert`, `screenshot`, `wait` and `execute_csharp`. It enters and leaves Play Mode for you and takes a screenshot when a step fails.
+[`run_e2e_test`](/tools/run-e2e-test/) runs a list of steps in Play Mode and returns pass/fail per step. Step actions are `wait_for_selector`, `simulate_input`, `assert`, `screenshot`, `wait` and `execute_csharp`. It enters and leaves Play Mode for you and takes a screenshot when a step fails.
 
 ```json
 {
@@ -44,10 +44,10 @@ The object names here are an example; use the ones in your scene.
 
 ## Beyond a single run
 
-- [`visual_regression_test`](/nanora-unity-mcp/tools/visual-regression-test/) compares a screenshot with a saved baseline.
-- [`performance_budget_test`](/nanora-unity-mcp/tools/performance-budget-test/) checks FPS, draw calls and memory against a budget.
-- [`run_tests`](/nanora-unity-mcp/tools/run-tests/) and [`get_test_results`](/nanora-unity-mcp/tools/get-test-results/) run your Unity Test Framework tests.
-- [`generate_test_report`](/nanora-unity-mcp/tools/generate-test-report/) writes the results up as a report.
+- [`visual_regression_test`](/tools/visual-regression-test/) compares a screenshot with a saved baseline.
+- [`performance_budget_test`](/tools/performance-budget-test/) checks FPS, draw calls and memory against a budget.
+- [`run_tests`](/tools/run-tests/) and [`get_test_results`](/tools/get-test-results/) run your Unity Test Framework tests.
+- [`generate_test_report`](/tools/generate-test-report/) writes the results up as a report.
 
 ## Screenshots without the UI?
 
