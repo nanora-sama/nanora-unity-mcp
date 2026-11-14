@@ -217,6 +217,37 @@ namespace NanoraUnityMCP.Tests
             Assert.IsFalse(results.Contains(inactive));
         }
 
+        [Test]
+        public void Query_AttributeSelector_ActiveInHierarchyFollowsParent()
+        {
+            var parent = CreateTestObject("SelectorParent");
+            var child = CreateTestObject("SelectorChild", parent.transform);
+            var shown = CreateTestObject("SelectorShown");
+            parent.SetActive(false);
+
+            var results = SelectorEngine.Query("[activeInHierarchy=false]", includeInactive: true);
+
+            Assert.Contains(child, results, "a child of an inactive parent is not active in the hierarchy");
+            Assert.IsFalse(results.Contains(shown));
+        }
+
+        [TestCase("[layer>=5]", true)]
+        [TestCase("[layer>=6]", false)]
+        [TestCase("[layer<=5]", true)]
+        [TestCase("[layer<=4]", false)]
+        [TestCase("[layer>4]", true)]
+        [TestCase("[layer<5]", false)]
+        [TestCase("[layer!=5]", false)]
+        public void Query_AttributeSelector_ComparisonOperators(string selector, bool expectMatch)
+        {
+            var target = CreateTestObject("SelectorLayerFive");
+            target.layer = 5;
+
+            var results = SelectorEngine.Query(selector);
+
+            Assert.AreEqual(expectMatch, results.Contains(target), selector);
+        }
+
         #endregion
 
         #region Include Inactive Tests

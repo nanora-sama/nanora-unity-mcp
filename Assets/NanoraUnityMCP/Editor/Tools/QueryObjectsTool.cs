@@ -565,8 +565,9 @@ namespace NanoraUnityMCP.Tools
             string typeName = attrMatch.Groups[2].Value;
             string attributeExpr = attrMatch.Groups[3].Value;
 
-            // Parse attribute expression: prop=value, prop>value, prop<value
-            var exprMatch = Regex.Match(attributeExpr, @"(\w+)\s*(=|>|<|>=|<=|!=)\s*(.+)");
+            // Parse attribute expression: prop=value, prop!=value, prop>value, prop>=value, prop<value, prop<=value.
+            // Two-character operators come first so that ">=" is not read as ">" with the value "=5".
+            var exprMatch = Regex.Match(attributeExpr, @"(\w+)\s*(>=|<=|!=|=|>|<)\s*(.+)");
             if (!exprMatch.Success)
             {
                 return results;
@@ -616,7 +617,7 @@ namespace NanoraUnityMCP.Tools
                     actualValue = obj.layer;
                     break;
                 case "active":
-                case "activeinHierarchy":
+                case "activeinhierarchy":
                     actualValue = obj.activeInHierarchy;
                     break;
                 case "activeself":

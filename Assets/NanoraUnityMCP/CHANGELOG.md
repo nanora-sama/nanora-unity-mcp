@@ -13,6 +13,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `execute_csharp` reflection mode accepts `FindAnyObjectByType<T>()` and `FindFirstObjectByType<T>()` as well as `FindObjectOfType<T>()`, and resolves them without reflecting on the deprecated method.
 - `query_objects` type selectors call `FindObjectsByType` through `UnityCompatibility` instead of reflecting on `FindObjectsOfType`.
 
+### Fixed
+
+- U-Selector attribute selectors understand `>=` and `<=`. Before, `[layer>=5]` was read as `>` with the value `=5` and matched nothing. `[activeInHierarchy=…]` now reads the GameObject's `activeInHierarchy`; before, only the shorter `[active=…]` did and the long name matched nothing.
+
 ## [1.2.1] - 2026-10-20
 
 ### Fixed
