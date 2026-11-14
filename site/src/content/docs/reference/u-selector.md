@@ -13,6 +13,7 @@ U-Selector finds GameObjects the way CSS selectors find HTML elements. [`query_o
 .Camera                 by component type
 /Canvas/Menu/PlayButton by hierarchy path
 [tag=Player]            by attribute
+[layer>=8]              by a numeric comparison
 .Enemy[tag=Boss]        component type and attribute
 ui:#StartButton         UI Toolkit element by name
 ui:.menu-item           UI Toolkit elements by USS class
@@ -33,14 +34,14 @@ Matches by hierarchy path from a root object.
 
 ## Attribute — `[name op value]`
 
-Operators: `=`, `!=`, `>`, `<`. Attribute names:
+Operators: `=`, `!=`, `>`, `>=`, `<`, `<=` (`>=` and `<=` need version 1.2.2 or later). Attribute names:
 
 | Attribute | Value |
 |---|---|
 | `name` | GameObject name |
 | `tag` | Tag |
 | `layer` | Layer number |
-| `active` | Active in the hierarchy |
+| `active`, `activeInHierarchy` | Active in the hierarchy (`activeInHierarchy` needs 1.2.2 or later) |
 | `activeSelf` | Own active flag |
 | anything else | A public property of one of the object's components, e.g. `[enabled=false]` |
 

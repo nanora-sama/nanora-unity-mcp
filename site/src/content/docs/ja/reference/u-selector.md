@@ -13,6 +13,7 @@ U-Selector は、CSS のセレクタが HTML の要素を探すように GameObj
 .Camera                 コンポーネントの型で
 /Canvas/Menu/PlayButton 階層のパスで
 [tag=Player]            属性で
+[layer>=8]              数値の比較で
 .Enemy[tag=Boss]        型と属性で
 ui:#StartButton         UI Toolkit の要素を名前で
 ui:.menu-item           UI Toolkit の要素を USS クラスで
@@ -33,14 +34,14 @@ GameObject の名前と完全に一致するものを探します。`*` と `?` 
 
 ## 属性 — `[名前 演算子 値]`
 
-演算子は `=`・`!=`・`>`・`<`。使える属性:
+演算子は `=`・`!=`・`>`・`>=`・`<`・`<=`（`>=` と `<=` は 1.2.2 以降）。使える属性:
 
 | 属性 | 値 |
 |---|---|
 | `name` | GameObject の名前 |
 | `tag` | タグ |
 | `layer` | レイヤー番号 |
-| `active` | 階層の中で有効か |
+| `active`・`activeInHierarchy` | 階層の中で有効か（`activeInHierarchy` は 1.2.2 以降） |
 | `activeSelf` | 自分の有効フラグ |
 | それ以外 | オブジェクトのコンポーネントの public プロパティ（例: `[enabled=false]`） |
 

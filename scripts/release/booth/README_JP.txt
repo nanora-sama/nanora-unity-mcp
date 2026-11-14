@@ -50,10 +50,10 @@ Node.js や Python、別のサーバーは要りません。
   execute_csharp・execute_menu_item は、あなたの権限で Editor 内のコードを実行します。
   サーバーは 127.0.0.1 だけで待ち受けます。AI に許可する操作は各クライアントの設定で確認してください。
 
-■ 困ったとき
-  クイックスタートの「困ったとき」に、よくある症状と対処をまとめています:
-  https://github.com/nanora-sama/nanora-unity-mcp/blob/main/Assets/NanoraUnityMCP/Documentation~/QuickStart_JP.md
-  （同じ文書が .tgz の中の package/Documentation~/QuickStart_JP.md にも入っています）
+■ ドキュメント・困ったとき
+  ドキュメント（導入・AI ごとのつなぎ方・全ツールのリファレンス）: https://unity-mcp.nanoradev.com/ja/
+  よくある症状と対処: https://unity-mcp.nanoradev.com/ja/troubleshooting/
+  （オフラインでは .tgz の中の package/Documentation~/QuickStart_JP.md の「困ったとき」を見てください）
 
 ■ ライセンス・サポート
   MIT License（ソースは GitHub で公開）。無料版と応援版の中身は同じです（応援版に優先サポートは付きません）。
